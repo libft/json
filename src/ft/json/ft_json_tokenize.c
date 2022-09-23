@@ -26,7 +26,7 @@ t_err	ft_json_tokenize(const char *str, t_ft_json_token_list *out)
 
 	result.head = NULL;
 	result.tail = NULL;
-	current_state = FT_JSON_TOKENIZER_STATE_ACCEPT_VALUE;
+	current_state = FT_JSON_TOKENIZER_STATE_DEFAULT;
 	data = NULL;
 	str--;
 	while (*++str)
@@ -38,7 +38,7 @@ t_err	ft_json_tokenize(const char *str, t_ft_json_token_list *out)
 			return (true);
 		}
 	}
-	if (current_state != FT_JSON_TOKENIZER_STATE_DONE)
+	if (current_state != FT_JSON_TOKENIZER_STATE_DEFAULT)
 	{
 		// TODO: free resources
 		return (true);

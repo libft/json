@@ -62,8 +62,7 @@ typedef struct s_ft_json_token_list
 }	t_ft_json_token_list;
 
 # define FT_JSON_TOKENIZER_STATE_ERROR -1
-# define FT_JSON_TOKENIZER_STATE_ACCEPT_VALUE 0
-# define FT_JSON_TOKENIZER_STATE_DONE 1
+# define FT_JSON_TOKENIZER_STATE_DEFAULT 0
 
 typedef t_err	(*t_ft_json_tokenizer_state)(
 					int *next_state,
