@@ -15,7 +15,10 @@
 #include <stddef.h>
 
 static const t_ft_json_tokenizer_state	g_state[] = {
-	NULL,
+	ft_json_tokenize_default,
+	ft_json_tokenize_quote,
+	ft_json_tokenize_number,
+	ft_json_tokenize_word,
 };
 
 t_err	ft_json_tokenize(const char *str, t_ft_json_token_list *out)
@@ -32,7 +35,7 @@ t_err	ft_json_tokenize(const char *str, t_ft_json_token_list *out)
 	while (*++str)
 	{
 		if (current_state == FT_JSON_TOKENIZER_STATE_ERROR
-			|| g_state[current_state](&current_state, &result, data))
+			|| g_state[current_state](*str, &current_state, &result, &data))
 		{
 			// TODO: free resources
 			return (true);

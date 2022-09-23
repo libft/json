@@ -44,15 +44,15 @@ typedef struct s_ft_json_token_string
 
 typedef union u_ft_json_token
 {
-	t_ft_json_token_type	type;
-	t_ft_json_token_number	number;
-	t_ft_json_token_string	string;
+	t_ft_json_token_type	*type;
+	t_ft_json_token_number	*number;
+	t_ft_json_token_string	*string;
 }	t_ft_json_token;
 
 typedef struct s_ft_json_token_list_node
 {
 	struct s_ft_json_token_list_node	*next;
-	t_ft_json_token						*value;
+	t_ft_json_token						value;
 }	t_ft_json_token_list_node;
 
 typedef struct s_ft_json_token_list
@@ -63,12 +63,37 @@ typedef struct s_ft_json_token_list
 
 # define FT_JSON_TOKENIZER_STATE_ERROR -1
 # define FT_JSON_TOKENIZER_STATE_DEFAULT 0
+# define FT_JSON_TOKENIZER_STATE_QUOTE 1
+# define FT_JSON_TOKENIZER_STATE_NUMBER 2
+# define FT_JSON_TOKENIZER_STATE_WORD 3
 
 typedef t_err	(*t_ft_json_tokenizer_state)(
+					char c,
 					int *next_state,
 					t_ft_json_token_list *list,
-					void *data);
+					void **data);
 
 t_err	ft_json_tokenize(const char *str, t_ft_json_token_list *out);
+
+t_err	ft_json_tokenize_default(
+			char c,
+			int *next_state,
+			t_ft_json_token_list *list,
+			void **data);
+t_err	ft_json_tokenize_quote(
+			char c,
+			int *next_state,
+			t_ft_json_token_list *list,
+			void **data);
+t_err	ft_json_tokenize_number(
+			char c,
+			int *next_state,
+			t_ft_json_token_list *list,
+			void **data);
+t_err	ft_json_tokenize_word(
+			char c,
+			int *next_state,
+			t_ft_json_token_list *list,
+			void **data);
 
 #endif
