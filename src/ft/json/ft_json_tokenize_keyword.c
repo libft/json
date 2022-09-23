@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
+/*   ft_json_tokenize_keyword.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
+/*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
+/*   Updated: 2022/09/24 00:00:31 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static t_err	add_token(t_ft_json_token_list *list, t_ft_json_token_type type)
 	return (false);
 }
 
-t_err	ft_json_tokenize_word(
+t_err	ft_json_tokenize_keyword(
 	char c,
 	int *next_state,
 	t_ft_json_token_list *list,
@@ -75,7 +75,7 @@ t_err	ft_json_tokenize_word(
 	if (real_data == 10 && add_token(list, FT_JSON_TOKEN_TYPE_NULL))
 		return (true);
 	*((uintptr_t *)data) = real_data;
-	*next_state = FT_JSON_TOKENIZER_STATE_WORD;
+	*next_state = FT_JSON_TOKENIZER_STATE_KEYWORD;
 	if (real_data == 3 || real_data == 7 || real_data == 10)
 	{
 		*data = NULL;

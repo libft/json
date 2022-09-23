@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
+/*   ft_json_internal.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
+/*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
+/*   Updated: 2022/09/24 00:00:54 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ typedef struct s_ft_json_token_list
 
 # define FT_JSON_TOKENIZER_STATE_ERROR -1
 # define FT_JSON_TOKENIZER_STATE_DEFAULT 0
-# define FT_JSON_TOKENIZER_STATE_QUOTE 1
+# define FT_JSON_TOKENIZER_STATE_STRING 1
 # define FT_JSON_TOKENIZER_STATE_NUMBER 2
-# define FT_JSON_TOKENIZER_STATE_WORD 3
+# define FT_JSON_TOKENIZER_STATE_KEYWORD 3
 
 typedef t_err	(*t_ft_json_tokenizer_state)(
 					char c,
@@ -80,7 +80,7 @@ t_err	ft_json_tokenize_default(
 			int *next_state,
 			t_ft_json_token_list *list,
 			void **data);
-t_err	ft_json_tokenize_quote(
+t_err	ft_json_tokenize_string(
 			char c,
 			int *next_state,
 			t_ft_json_token_list *list,
@@ -90,7 +90,7 @@ t_err	ft_json_tokenize_number(
 			int *next_state,
 			t_ft_json_token_list *list,
 			void **data);
-t_err	ft_json_tokenize_word(
+t_err	ft_json_tokenize_keyword(
 			char c,
 			int *next_state,
 			t_ft_json_token_list *list,
