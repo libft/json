@@ -52,7 +52,7 @@ typedef union u_ft_json_token
 typedef struct s_ft_json_token_list_node
 {
 	struct s_ft_json_token_list_node	*next;
-	void								(*free_value)(t_ft_json_token *);
+	void								(*free_value)(t_ft_json_token);
 	t_ft_json_token						value;
 }	t_ft_json_token_list_node;
 

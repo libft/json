@@ -43,7 +43,7 @@ static t_err	add_token(t_ft_json_token_list *list, t_ft_json_token_type type)
 	}
 	*token = type;
 	node->next = NULL;
-	node->free_value = (void (*)(t_ft_json_token *))free;
+	node->free_value = (void (*)(t_ft_json_token))free;
 	node->value.type = token;
 	if (list->head)
 		list->tail->next = node;
