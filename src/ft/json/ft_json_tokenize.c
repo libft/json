@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_json_tokenize.c                                 :+:      :+:    :+:   */
+/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
+/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2022/09/24 00:00:53 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ t_err	ft_json_tokenize(const char *str, t_ft_json_token_list *out)
 		if (current_state == FT_JSON_TOKENIZER_STATE_ERROR
 			|| g_state[current_state](*str, &current_state, &result, &data))
 		{
-			// TODO: free resources
+			ft_json_token_list_free(result);
 			return (true);
 		}
 	}
 	if (current_state != FT_JSON_TOKENIZER_STATE_DEFAULT)
 	{
-		// TODO: free resources
+		ft_json_token_list_free(result);
 		return (true);
 	}
 	*out = result;

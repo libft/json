@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_json_internal.h                                 :+:      :+:    :+:   */
+/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
+/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 2022/09/24 00:00:54 by Juyeong Maing    ###   ########.fr       */
+/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef union u_ft_json_token
 typedef struct s_ft_json_token_list_node
 {
 	struct s_ft_json_token_list_node	*next;
+	void								(*free_value)(t_ft_json_token *);
 	t_ft_json_token						value;
 }	t_ft_json_token_list_node;
 
@@ -74,6 +75,8 @@ typedef t_err	(*t_ft_json_tokenizer_state)(
 					void **data);
 
 t_err	ft_json_tokenize(const char *str, t_ft_json_token_list *out);
+
+void	ft_json_token_list_free(t_ft_json_token_list list);
 
 t_err	ft_json_tokenize_default(
 			char c,
