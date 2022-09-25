@@ -14,8 +14,6 @@
 
 #include <stdlib.h>
 
-#include "ft_stringbuilder.h"
-
 static t_err	add_token(t_ft_json_token_list *list, t_ft_json_token_type type)
 {
 	t_ft_json_token_type *const			token
