@@ -93,13 +93,17 @@ t_err	ft_json_tokenize_default(
 	*next_state = (t_s){FT_JSON_TOKENIZER_STATE_ERROR, NULL};
 	if (c == '[' || c == ']' || c == '{' || c == '}' || c == ':' || c == ',')
 		return (special_token(c, list, next_state));
+	else if (c == 't')
+		*next_state = (t_s){FT_JSON_TOKENIZER_STATE_KEYWORD_T, NULL};
+	else if (c == 'f')
+		*next_state = (t_s){FT_JSON_TOKENIZER_STATE_KEYWORD_F, NULL};
+	else if (c == 'n')
+		*next_state = (t_s){FT_JSON_TOKENIZER_STATE_KEYWORD_N, NULL};
 	else if (c == ' ' || c == '\n' || c == '\r' || c == '\t')
 		*next_state = (t_s){FT_JSON_TOKENIZER_STATE_DEFAULT, NULL};
 	else if (c == '-' || ('0' <= c && c <= '9'))
 		return (transition_to_number(c, next_state));
 	else if (c == '"')
 		return (transition_to_string(next_state));
-	else
-		return (true);
 	return (false);
 }
