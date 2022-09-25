@@ -15,6 +15,8 @@
 
 # include "ft_json.h"
 
+# include "ft_stringbuilder.h"
+
 typedef enum e_ft_json_token_type
 {
 	FT_JSON_TOKEN_TYPE_NULL,
@@ -73,30 +75,70 @@ typedef t_err	(*t_ft_json_tokenizer_state)(
 					int *next_state,
 					t_ft_json_token_list *list,
 					void **data);
+t_err								ft_json_tokenize(
+										const char *str,
+										t_ft_json_token_list *out);
+void								ft_json_token_list_free(
+										t_ft_json_token_list list);
+t_err								ft_json_tokenize_default(
+										char c,
+										int *next_state,
+										t_ft_json_token_list *list,
+										void **data);
+t_err								ft_json_tokenize_string(
+										char c,
+										int *next_state,
+										t_ft_json_token_list *list,
+										void **data);
+t_err								ft_json_tokenize_number(
+										char c,
+										int *next_state,
+										t_ft_json_token_list *list,
+										void **data);
+t_err								ft_json_tokenize_keyword(
+										char c,
+										int *next_state,
+										t_ft_json_token_list *list,
+										void **data);
 
-t_err	ft_json_tokenize(const char *str, t_ft_json_token_list *out);
+typedef enum e_ft_json_tokenizer_state_string_escape
+{
+	FT_JSON_TOKENIZER_STATE_STRING_NORMAL,
+	FT_JSON_TOKENIZER_STATE_STRING_BACKSLASH,
+	FT_JSON_TOKENIZER_STATE_STRING_X,
+	FT_JSON_TOKENIZER_STATE_STRING_X2,
+}	t_ft_json_tokenizer_state_string_escape;
 
-void	ft_json_token_list_free(t_ft_json_token_list list);
+typedef struct s_ft_json_tokenizer_state_string
+{
+	t_stringbuilder							*stringbuilder;
+	t_ft_json_tokenizer_state_string_escape	escape;
+	unsigned char							x;
+}	t_ft_json_tokenizer_state_string;
 
-t_err	ft_json_tokenize_default(
-			char c,
-			int *next_state,
-			t_ft_json_token_list *list,
-			void **data);
-t_err	ft_json_tokenize_string(
-			char c,
-			int *next_state,
-			t_ft_json_token_list *list,
-			void **data);
-t_err	ft_json_tokenize_number(
-			char c,
-			int *next_state,
-			t_ft_json_token_list *list,
-			void **data);
-t_err	ft_json_tokenize_keyword(
-			char c,
-			int *next_state,
-			t_ft_json_token_list *list,
-			void **data);
+t_ft_json_tokenizer_state_string	*ft_json_tokenizer_state_string(
+										void **to);
+
+typedef enum e_ft_json_tokenizer_state_number_part
+{
+	FT_JSON_TOKENIZER_STATE_NUMBER_ZERO,
+	FT_JSON_TOKENIZER_STATE_NUMBER_INTEGER,
+	FT_JSON_TOKENIZER_STATE_NUMBER_DOT,
+	FT_JSON_TOKENIZER_STATE_NUMBER_FRACTION,
+	FT_JSON_TOKENIZER_STATE_NUMBER_E,
+	FT_JSON_TOKENIZER_STATE_NUMBER_EXPONENT,
+}	t_ft_json_tokenizer_state_number_part;
+
+typedef struct s_ft_json_tokenizer_state_number
+{
+	double									value;
+	double									current_digit;
+	t_ft_json_tokenizer_state_number_part	state;
+	int										sign;
+}	t_ft_json_tokenizer_state_number;
+
+t_ft_json_tokenizer_state_number	*ft_json_tokenizer_state_number(
+										void **to,
+										char c);
 
 #endif
