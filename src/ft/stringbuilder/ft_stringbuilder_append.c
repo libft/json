@@ -12,8 +12,23 @@
 
 #include "ft_stringbuilder.h"
 
-#include "wrap.h"
-#include "ft_memory.h"
+#include <stdlib.h>
+
+static void	ft_memcpy(void *dest, const void *source, size_t size)
+{
+	char		*d;
+	const char	*s;
+	size_t		i;
+
+	d = (char *) dest;
+	s = (const char *) source;
+	i = 0;
+	while (i < size)
+	{
+		i++;
+		*d++ = *s++;
+	}
+}
 
 static t_stringbuilder_node	*internal(
 	t_stringbuilder *self,
@@ -27,12 +42,12 @@ static t_stringbuilder_node	*internal(
 	size = length;
 	if (length < self->buffer_size)
 		size = self->buffer_size;
-	node = wrap_malloc(sizeof(t_stringbuilder_node) + size);
+	node = (t_stringbuilder_node *)malloc(sizeof(t_stringbuilder_node) + size);
 	if (!node)
 		return (NULL);
 	node->next = NULL;
 	node->capacity = size;
-	ft_memory_copy(node->str, buffer, length);
+	ft_memcpy(node->str, buffer, length);
 	node->length = length;
 	if (self->tail)
 		self->tail->next = node;
@@ -57,7 +72,7 @@ t_err	stringbuilder_append(
 		offset = self->tail->capacity - self->tail->length;
 	if (offset >= len)
 	{
-		ft_memory_copy(&self->tail->str[self->tail->length], buffer, len);
+		ft_memcpy(&self->tail->str[self->tail->length], buffer, len);
 		self->tail->length += len;
 		self->length += len;
 		return (false);
@@ -67,7 +82,7 @@ t_err	stringbuilder_append(
 		return (true);
 	if (offset)
 	{
-		ft_memory_copy(&tail->str[tail->length], buffer, offset);
+		ft_memcpy(&tail->str[tail->length], buffer, offset);
 		tail->length += offset;
 	}
 	self->length += len;

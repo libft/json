@@ -12,7 +12,7 @@
 
 #include "ft_stringbuilder.h"
 
-#include "wrap.h"
+#include <stdlib.h>
 
 void	stringbuilder_free(t_stringbuilder *self)
 {
@@ -23,8 +23,8 @@ void	stringbuilder_free(t_stringbuilder *self)
 	while (current)
 	{
 		next = current->next;
-		wrap_free(current);
+		free(current);
 		current = next;
 	}
-	wrap_free(self);
+	free(self);
 }

@@ -12,12 +12,27 @@
 
 #include "ft_stringbuilder.h"
 
-#include "wrap.h"
-#include "ft_memory.h"
+#include <stdlib.h>
+
+static void	ft_memcpy(void *dest, const void *source, size_t size)
+{
+	char		*d;
+	const char	*s;
+	size_t		i;
+
+	d = (char *) dest;
+	s = (const char *) source;
+	i = 0;
+	while (i < size)
+	{
+		i++;
+		*d++ = *s++;
+	}
+}
 
 char	*stringbuilder_to_string(t_stringbuilder *self, size_t offset)
 {
-	char *const				result = wrap_malloc(self->length - offset + 1);
+	char *const				result = (char *)malloc(self->length - offset + 1);
 	t_stringbuilder_node	*node;
 	size_t					position;
 
@@ -28,7 +43,7 @@ char	*stringbuilder_to_string(t_stringbuilder *self, size_t offset)
 		return (result);
 	node = self->head;
 	position = 0;
-	ft_memory_copy(
+	ft_memcpy(
 		(void *)&result[position],
 		&node->str[offset],
 		node->length - offset);
@@ -36,7 +51,7 @@ char	*stringbuilder_to_string(t_stringbuilder *self, size_t offset)
 	node = node->next;
 	while (node)
 	{
-		ft_memory_copy((void *)&result[position], node->str, node->length);
+		ft_memcpy((void *)&result[position], node->str, node->length);
 		position += node->length;
 		node = node->next;
 	}

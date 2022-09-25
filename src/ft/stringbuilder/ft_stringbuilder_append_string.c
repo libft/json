@@ -12,9 +12,20 @@
 
 #include "ft_stringbuilder.h"
 
-#include "ft_cstring.h"
+static size_t	ft_strlen(const char *str)
+{
+	size_t	result;
+
+	result = 0;
+	while (*str)
+	{
+		str++;
+		result++;
+	}
+	return (result);
+}
 
 t_err	stringbuilder_append_string(t_stringbuilder *self, const char *str)
 {
-	return (stringbuilder_append(self, ft_cstring_length(str), str));
+	return (stringbuilder_append(self, ft_strlen(str), str));
 }
