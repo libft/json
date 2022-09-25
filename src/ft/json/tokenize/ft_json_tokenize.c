@@ -12,27 +12,39 @@
 
 #include "ft_json_internal.h"
 
-#include <stdlib.h>
+#include <stddef.h>
 
-#include "ft_stringbuilder.h"
+static const t_ft_json_tokenizer_state_function	g_state_functions[] = {
+	ft_json_tokenize_default,
+};
 
-t_err	ft_json_tokenizer_state_string(
-	void **to
+t_err	ft_json_tokenize(
+	const char *str,
+	t_ft_json_token_list *out
 )
 {
-	t_ft_json_tokenizer_state_string *const	result
-		= malloc(sizeof(t_ft_json_tokenizer_state_string));
-	t_stringbuilder *const					stringbuilder
-		= new_stringbuilder(1024);
+	t_ft_json_tokenizer_state	current_state;
+	t_ft_json_token_list		result;
+	size_t						i;
+	t_err						error;
 
-	if (!result || !stringbuilder)
-	{
-		free(result);
-		if (stringbuilder)
-			stringbuilder_free(stringbuilder);
-		return (true);
-	}
-	result->stringbuilder = stringbuilder;
-	*to = result;
-	return (false);
+	error = false;
+	current_state.state = FT_JSON_TOKENIZER_STATE_DEFAULT;
+	current_state.data = NULL;
+	result.head = NULL;
+	result.tail = NULL;
+	*out = result;
+	i = -1;
+	while (!error && (i++ == (size_t)-1 || str[i - 1]))
+		if (current_state.state == FT_JSON_TOKENIZER_STATE_ERROR
+			|| g_state_functions[current_state.state](
+			*str, &result, current_state.data, &current_state))
+			error = true;
+	if (current_state.state != FT_JSON_TOKENIZER_STATE_DEFAULT)
+		return (false);
+	if (error)
+		ft_json_token_list_free(result);
+	else
+		*out = result;
+	return (error);
 }
