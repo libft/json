@@ -222,18 +222,12 @@ t_err	ft_json_tokenize_number_e_digit(
 			t_ft_json_token_list *list,
 			void *data,
 			t_ft_json_tokenizer_state *out_next_state);
-t_err	ft_json_tokenize_add_simple_token(
-			t_ft_json_token_list *list,
-			t_ft_json_token_type type);
 
 typedef struct s_ft_json_tokenizer_state_string
 {
 	t_stringbuilder							*stringbuilder;
 	unsigned char							x;
 }	t_ft_json_tokenizer_state_string;
-
-t_err	ft_json_tokenizer_state_string(
-			void **to);
 
 typedef struct s_ft_json_tokenizer_state_number
 {
@@ -242,6 +236,14 @@ typedef struct s_ft_json_tokenizer_state_number
 	int										sign;
 }	t_ft_json_tokenizer_state_number;
 
+t_err	ft_json_tokenize_add_simple_token(
+			t_ft_json_token_list *list,
+			t_ft_json_token_type type);
+t_err	ft_json_tokenize_add_string_token(
+			t_ft_json_token_list *list,
+			t_ft_json_tokenizer_state_string *state);
+t_err	ft_json_tokenizer_state_string(
+			void **to);
 t_err	ft_json_tokenizer_state_number(
 			void **to,
 			char c);
