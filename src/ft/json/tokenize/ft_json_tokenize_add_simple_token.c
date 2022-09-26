@@ -16,7 +16,8 @@
 
 t_err	ft_json_tokenize_add_simple_token(
 	t_ft_json_token_list *list,
-	t_ft_json_token_type type)
+	t_ft_json_token_type type
+)
 {
 	t_ft_json_token_type *const			token
 		= malloc(sizeof(t_ft_json_token_type));
