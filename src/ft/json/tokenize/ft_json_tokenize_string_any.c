@@ -18,7 +18,6 @@
 #include "ft_types_char.h"
 
 typedef t_ft_json_tokenizer_state			t_s;
-typedef t_ft_json_token_string				t_v;
 typedef t_ft_json_tokenizer_state_string	t_x;
 
 t_err	ft_json_tokenize_string_any(

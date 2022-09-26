@@ -15,43 +15,60 @@
 #include <stdlib.h>
 
 #include "ft_stringbuilder.h"
+#include "ft_types_char.h"
 
+typedef t_ft_json_tokenizer_state			t_s;
 typedef t_ft_json_tokenizer_state_string	t_x;
 
-static void	free_value(t_ft_json_token value)
+static char	unescape(char c)
 {
-	free(value.string->value);
-	free(value.string);
+	if (c == '\"' || c == '\\' || c == '/')
+		return (c);
+	if (c == 'b')
+		return ('\b');
+	if (c == 'b')
+		return ('\b');
+	if (c == 'f')
+		return ('\b');
+	if (c == 'n')
+		return ('\b');
+	if (c == 'r')
+		return ('\b');
+	if (c == 't')
+		return ('\b');
+	return (0);
 }
 
-t_err	ft_json_tokenize_add_string_token(
+t_err	ft_json_tokenize_string_backslash(
+	char c,
 	t_ft_json_token_list *list,
-	t_x *state
+	void *data,
+	t_ft_json_tokenizer_state *out_next_state
 )
 {
-	char *const							string
-		= stringbuilder_to_string(state->stringbuilder, 0);
-	t_ft_json_token_string *const		token
-		= malloc(sizeof(t_ft_json_token_string));
-	t_ft_json_token_list_node *const	node
-		= malloc(sizeof(t_ft_json_token_list_node));
+	const char	next = unescape(c);
 
-	stringbuilder_free(state->stringbuilder);
-	if (!string || !token || !node)
+	(void)list;
+	if (c == 'x')
 	{
-		free(string);
-		free(token);
-		free(node);
+		*out_next_state = (t_s){FT_JSON_TOKENIZER_STATE_STRING_X0, data};
+		return (false);
+	}
+	if (c == 'u' || !c)
+	{
+		stringbuilder_free(((t_x *)data)->stringbuilder);
+		free(data);
+		*out_next_state = (t_s){FT_JSON_TOKENIZER_STATE_ERROR, NULL};
+		return (!c);
+	}
+	*out_next_state = (t_s){FT_JSON_TOKENIZER_STATE_STRING_ANY, data};
+	if (stringbuilder_append_char(
+			((t_x *)data)->stringbuilder, next))
+	{
+		stringbuilder_free(
+			((t_x *)data)->stringbuilder);
+		free(data);
 		return (true);
 	}
-	*token = (t_ft_json_token_string){FT_JSON_TOKEN_TYPE_STRING, string};
-	node->next = NULL;
-	node->free_value = free_value;
-	node->value.string = token;
-	if (list->head)
-		list->tail->next = node;
-	else
-		list->head = node;
-	list->tail = node;
 	return (false);
 }
