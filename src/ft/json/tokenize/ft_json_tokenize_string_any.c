@@ -36,7 +36,7 @@ t_err	ft_json_tokenize_string_any(
 	else if (c == '\\')
 	{
 		*out_next_state = (t_s){FT_JSON_TOKENIZER_STATE_STRING_BACKSLASH, data};
-		return (ft_json_tokenize_add_string_token(list, (t_x *)data));
+		return (false);
 	}
 	else if (ft_types_char_cntrl(c))
 	{
