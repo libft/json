@@ -62,25 +62,25 @@ t_err	ft_json_tokenize_string_any(
 	char c,
 	t_ft_json_token_list *list,
 	void *data,
-	t_ft_json_tokenizer_state *next_state
+	t_ft_json_tokenizer_state *out_next_state
 )
 {
 	if (c == '"')
 	{
-		*next_state = (t_s){FT_JSON_TOKENIZER_STATE_DEFAULT, NULL};
+		*out_next_state = (t_s){FT_JSON_TOKENIZER_STATE_DEFAULT, NULL};
 		return (add_token(list, (t_ft_json_tokenizer_state_string *)data));
 	}
 	else if (c == '\\')
 	{
-		*next_state = (t_s){FT_JSON_TOKENIZER_STATE_STRING_BACKSLASH, data};
+		*out_next_state = (t_s){FT_JSON_TOKENIZER_STATE_STRING_BACKSLASH, data};
 		return (add_token(list, (t_ft_json_tokenizer_state_string *)data));
 	}
 	else if (ft_types_char_cntrl(c))
 	{
-		*next_state = (t_s){FT_JSON_TOKENIZER_STATE_ERROR, NULL};
+		*out_next_state = (t_s){FT_JSON_TOKENIZER_STATE_ERROR, NULL};
 		return (false);
 	}
-	*next_state = (t_s){FT_JSON_TOKENIZER_STATE_STRING_BACKSLASH, data};
+	*out_next_state = (t_s){FT_JSON_TOKENIZER_STATE_STRING_BACKSLASH, data};
 	if (stringbuilder_append_char(
 			((t_ft_json_tokenizer_state_string *)data)->stringbuilder, c))
 	{

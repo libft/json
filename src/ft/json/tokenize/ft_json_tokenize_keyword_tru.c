@@ -16,7 +16,7 @@ t_err	ft_json_tokenize_keyword_tru(
 	char c,
 	t_ft_json_token_list *list,
 	void *data,
-	t_ft_json_tokenizer_state *next_state
+	t_ft_json_tokenizer_state *out_next_state
 )
 {
 	(void)list;
@@ -25,9 +25,9 @@ t_err	ft_json_tokenize_keyword_tru(
 	{
 		if (ft_json_tokenize_add_simple_token(list, FT_JSON_TOKEN_TYPE_TRUE))
 			return (true);
-		next_state->state = FT_JSON_TOKENIZER_STATE_DEFAULT;
+		out_next_state->state = FT_JSON_TOKENIZER_STATE_DEFAULT;
 	}
 	else
-		next_state->state = FT_JSON_TOKENIZER_STATE_ERROR;
+		out_next_state->state = FT_JSON_TOKENIZER_STATE_ERROR;
 	return (false);
 }

@@ -100,7 +100,7 @@ typedef t_err	(*t_ft_json_tokenizer_state_function)(
 					char c,
 					t_ft_json_token_list *list,
 					void *data,
-					t_ft_json_tokenizer_state *next_state);
+					t_ft_json_tokenizer_state *out_next_state);
 
 t_err	ft_json_tokenize(
 			const char *str,
@@ -111,117 +111,117 @@ t_err	ft_json_tokenize_default(
 			char c,
 			t_ft_json_token_list *list,
 			void *data,
-			t_ft_json_tokenizer_state *next_state);
+			t_ft_json_tokenizer_state *out_next_state);
 t_err	ft_json_tokenize_keyword_t(
 			char c,
 			t_ft_json_token_list *list,
 			void *data,
-			t_ft_json_tokenizer_state *next_state);
+			t_ft_json_tokenizer_state *out_next_state);
 t_err	ft_json_tokenize_keyword_tr(
 			char c,
 			t_ft_json_token_list *list,
 			void *data,
-			t_ft_json_tokenizer_state *next_state);
+			t_ft_json_tokenizer_state *out_next_state);
 t_err	ft_json_tokenize_keyword_tru(
 			char c,
 			t_ft_json_token_list *list,
 			void *data,
-			t_ft_json_tokenizer_state *next_state);
+			t_ft_json_tokenizer_state *out_next_state);
 t_err	ft_json_tokenize_keyword_f(
 			char c,
 			t_ft_json_token_list *list,
 			void *data,
-			t_ft_json_tokenizer_state *next_state);
+			t_ft_json_tokenizer_state *out_next_state);
 t_err	ft_json_tokenize_keyword_fa(
 			char c,
 			t_ft_json_token_list *list,
 			void *data,
-			t_ft_json_tokenizer_state *next_state);
+			t_ft_json_tokenizer_state *out_next_state);
 t_err	ft_json_tokenize_keyword_fal(
 			char c,
 			t_ft_json_token_list *list,
 			void *data,
-			t_ft_json_tokenizer_state *next_state);
+			t_ft_json_tokenizer_state *out_next_state);
 t_err	ft_json_tokenize_keyword_fals(
 			char c,
 			t_ft_json_token_list *list,
 			void *data,
-			t_ft_json_tokenizer_state *next_state);
+			t_ft_json_tokenizer_state *out_next_state);
 t_err	ft_json_tokenize_keyword_n(
 			char c,
 			t_ft_json_token_list *list,
 			void *data,
-			t_ft_json_tokenizer_state *next_state);
+			t_ft_json_tokenizer_state *out_next_state);
 t_err	ft_json_tokenize_keyword_nu(
 			char c,
 			t_ft_json_token_list *list,
 			void *data,
-			t_ft_json_tokenizer_state *next_state);
+			t_ft_json_tokenizer_state *out_next_state);
 t_err	ft_json_tokenize_keyword_nul(
 			char c,
 			t_ft_json_token_list *list,
 			void *data,
-			t_ft_json_tokenizer_state *next_state);
+			t_ft_json_tokenizer_state *out_next_state);
 t_err	ft_json_tokenize_string_any(
 			char c,
 			t_ft_json_token_list *list,
 			void *data,
-			t_ft_json_tokenizer_state *next_state);
+			t_ft_json_tokenizer_state *out_next_state);
 t_err	ft_json_tokenize_string_backslash(
 			char c,
 			t_ft_json_token_list *list,
 			void *data,
-			t_ft_json_tokenizer_state *next_state);
+			t_ft_json_tokenizer_state *out_next_state);
 t_err	ft_json_tokenize_string_x1(
 			char c,
 			t_ft_json_token_list *list,
 			void *data,
-			t_ft_json_tokenizer_state *next_state);
+			t_ft_json_tokenizer_state *out_next_state);
 t_err	ft_json_tokenize_string_x2(
 			char c,
 			t_ft_json_token_list *list,
 			void *data,
-			t_ft_json_tokenizer_state *next_state);
+			t_ft_json_tokenizer_state *out_next_state);
 t_err	ft_json_tokenize_number_sign(
 			char c,
 			t_ft_json_token_list *list,
 			void *data,
-			t_ft_json_tokenizer_state *next_state);
+			t_ft_json_tokenizer_state *out_next_state);
 t_err	ft_json_tokenize_number_zero(
 			char c,
 			t_ft_json_token_list *list,
 			void *data,
-			t_ft_json_tokenizer_state *next_state);
+			t_ft_json_tokenizer_state *out_next_state);
 t_err	ft_json_tokenize_number_integer(
 			char c,
 			t_ft_json_token_list *list,
 			void *data,
-			t_ft_json_tokenizer_state *next_state);
+			t_ft_json_tokenizer_state *out_next_state);
 t_err	ft_json_tokenize_number_dot(
 			char c,
 			t_ft_json_token_list *list,
 			void *data,
-			t_ft_json_tokenizer_state *next_state);
+			t_ft_json_tokenizer_state *out_next_state);
 t_err	ft_json_tokenize_number_fraction(
 			char c,
 			t_ft_json_token_list *list,
 			void *data,
-			t_ft_json_tokenizer_state *next_state);
+			t_ft_json_tokenizer_state *out_next_state);
 t_err	ft_json_tokenize_number_e(
 			char c,
 			t_ft_json_token_list *list,
 			void *data,
-			t_ft_json_tokenizer_state *next_state);
+			t_ft_json_tokenizer_state *out_next_state);
 t_err	ft_json_tokenize_number_e_sign(
 			char c,
 			t_ft_json_token_list *list,
 			void *data,
-			t_ft_json_tokenizer_state *next_state);
+			t_ft_json_tokenizer_state *out_next_state);
 t_err	ft_json_tokenize_number_e_digit(
 			char c,
 			t_ft_json_token_list *list,
 			void *data,
-			t_ft_json_tokenizer_state *next_state);
+			t_ft_json_tokenizer_state *out_next_state);
 t_err	ft_json_tokenize_add_simple_token(
 			t_ft_json_token_list *list,
 			t_ft_json_token_type type);
