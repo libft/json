@@ -242,6 +242,9 @@ t_err	ft_json_tokenize_add_simple_token(
 t_err	ft_json_tokenize_add_string_token(
 			t_ft_json_token_list *list,
 			t_ft_json_tokenizer_state_string *state);
+t_err	ft_json_tokenize_add_number_token(
+			t_ft_json_token_list *list,
+			t_ft_json_tokenizer_state_number *state);
 t_err	ft_json_tokenizer_state_string(
 			void **to);
 t_err	ft_json_tokenizer_state_number(

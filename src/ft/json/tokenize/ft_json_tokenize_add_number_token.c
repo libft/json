@@ -14,39 +14,27 @@
 
 #include <stdlib.h>
 
-#include "ft_stringbuilder.h"
-
-typedef t_ft_json_token_string		t_token;
-typedef t_ft_json_token_list_node	t_node;
-
-static void	free_value(t_ft_json_token value)
-{
-	free(value.string->value);
-	free(value.string);
-}
-
-t_err	ft_json_tokenize_add_string_token(
+t_err	ft_json_tokenize_add_number_token(
 	t_ft_json_token_list *list,
-	t_ft_json_tokenizer_state_string *state
+	t_ft_json_tokenizer_state_number *state
 )
 {
-	char *const		string = stringbuilder_to_string(state->stringbuilder, 0);
-	t_token *const	token = malloc(sizeof(t_token));
-	t_node *const	node = malloc(sizeof(t_node));
+	t_ft_json_token_number *const		token
+		= malloc(sizeof(t_ft_json_token_number));
+	t_ft_json_token_list_node *const	node
+		= malloc(sizeof(t_ft_json_token_list_node));
+	const double						number = state->value * state->sign;
 
-	stringbuilder_free(state->stringbuilder);
 	free(state);
-	if (!string || !token || !node)
+	if (!token || !node)
 	{
-		free(string);
 		free(token);
 		free(node);
 		return (true);
 	}
-	*token = (t_token){FT_JSON_TOKEN_TYPE_STRING, string};
+	*token = (t_ft_json_token_number){FT_JSON_TOKEN_TYPE_NUMBER, number};
 	node->next = NULL;
-	node->free_value = free_value;
-	node->value.string = token;
+	node->free_value = (void (*)(t_ft_json_token))free;
 	if (list->head)
 		list->tail->next = node;
 	else
