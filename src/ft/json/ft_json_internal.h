@@ -172,12 +172,12 @@ t_err	ft_json_tokenize_string_backslash(
 			t_ft_json_token_list *list,
 			void *data,
 			t_ft_json_tokenizer_state *out_next_state);
-t_err	ft_json_tokenize_string_x1(
+t_err	ft_json_tokenize_string_x0(
 			char c,
 			t_ft_json_token_list *list,
 			void *data,
 			t_ft_json_tokenizer_state *out_next_state);
-t_err	ft_json_tokenize_string_x2(
+t_err	ft_json_tokenize_string_x1(
 			char c,
 			t_ft_json_token_list *list,
 			void *data,

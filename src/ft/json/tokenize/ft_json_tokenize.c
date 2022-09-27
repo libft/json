@@ -16,6 +16,28 @@
 
 static const t_ft_json_tokenizer_state_function	g_state_functions[] = {
 	ft_json_tokenize_default,
+	ft_json_tokenize_keyword_t,
+	ft_json_tokenize_keyword_tr,
+	ft_json_tokenize_keyword_tru,
+	ft_json_tokenize_keyword_f,
+	ft_json_tokenize_keyword_fa,
+	ft_json_tokenize_keyword_fal,
+	ft_json_tokenize_keyword_fals,
+	ft_json_tokenize_keyword_n,
+	ft_json_tokenize_keyword_nu,
+	ft_json_tokenize_keyword_nul,
+	ft_json_tokenize_string_any,
+	ft_json_tokenize_string_backslash,
+	ft_json_tokenize_string_x0,
+	ft_json_tokenize_string_x1,
+	ft_json_tokenize_number_sign,
+	ft_json_tokenize_number_zero,
+	ft_json_tokenize_number_integer,
+	ft_json_tokenize_number_dot,
+	ft_json_tokenize_number_fraction,
+	ft_json_tokenize_number_e,
+	ft_json_tokenize_number_e_sign,
+	ft_json_tokenize_number_e_digit,
 };
 
 t_err	ft_json_tokenize(
