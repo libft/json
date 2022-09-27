@@ -27,7 +27,7 @@ static unsigned char	from_hex(char c)
 		return (c - 'a' + 10);
 	if ('A' <= c && c <= 'F')
 		return (c - 'A' + 10);
-	return (0);
+	return (-1);
 }
 
 t_err	ft_json_tokenize_string_x0(
@@ -40,7 +40,7 @@ t_err	ft_json_tokenize_string_x0(
 	const unsigned char	value = from_hex(c);
 
 	(void)list;
-	if (!value)
+	if (value == (unsigned char)-1)
 	{
 		stringbuilder_free(((t_x *)data)->stringbuilder);
 		free(data);

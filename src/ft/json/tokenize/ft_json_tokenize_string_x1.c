@@ -13,56 +13,45 @@
 #include "ft_json_internal.h"
 
 #include <stdlib.h>
+#include <limits.h>
 
 #include "ft_stringbuilder.h"
-#include "ft_types_char.h"
 
 typedef t_ft_json_tokenizer_state			t_s;
 typedef t_ft_json_tokenizer_state_string	t_x;
 
-static char	unescape(char c)
+static unsigned char	from_hex(char c)
 {
-	if (c == '\"' || c == '\\' || c == '/')
-		return (c);
-	if (c == 'b')
-		return ('\b');
-	if (c == 'b')
-		return ('\b');
-	if (c == 'f')
-		return ('\b');
-	if (c == 'n')
-		return ('\b');
-	if (c == 'r')
-		return ('\b');
-	if (c == 't')
-		return ('\b');
-	return (0);
+	if ('0' <= c && c <= '9')
+		return (c - '0');
+	if ('a' <= c && c <= 'f')
+		return (c - 'a' + 10);
+	if ('A' <= c && c <= 'F')
+		return (c - 'A' + 10);
+	return (-1);
 }
 
-t_err	ft_json_tokenize_string_backslash(
+t_err	ft_json_tokenize_string_x1(
 	char c,
 	t_ft_json_token_list *list,
 	void *data,
 	t_ft_json_tokenizer_state *out_next_state
 )
 {
-	const char	next = unescape(c);
+	const unsigned char	value = from_hex(c);
 
 	(void)list;
-	if (c == 'x')
-	{
-		*out_next_state = (t_s){FT_JSON_TOKENIZER_STATE_STRING_X0, data};
-		return (false);
-	}
-	if (c == 'u' || !c)
+	if (value == (unsigned char)-1)
 	{
 		stringbuilder_free(((t_x *)data)->stringbuilder);
 		free(data);
 		*out_next_state = (t_s){FT_JSON_TOKENIZER_STATE_ERROR, NULL};
-		return (c == 'u');
+		return (false);
 	}
 	*out_next_state = (t_s){FT_JSON_TOKENIZER_STATE_STRING_ANY, data};
-	if (stringbuilder_append_char(((t_x *)data)->stringbuilder, next))
+	if (stringbuilder_append_char(
+			((t_x *)data)->stringbuilder,
+			(((t_x *)data)->x << CHAR_BIT) | value))
 	{
 		stringbuilder_free(((t_x *)data)->stringbuilder);
 		free(data);
