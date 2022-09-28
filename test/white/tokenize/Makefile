@@ -1,18 +1,18 @@
 Q3 := $(if $(filter 3,$(V) $(VERBOSE)),,@)
 Q2 := $(if $(filter 2 3,$(V) $(VERBOSE)),,@)
 Q1 := $(if $(filter 1 2 3,$(V) $(VERBOSE)),,@)
-MAKE := $(MAKE) $(if $(filter 3,$(V) $(VERBOSE)),,--no-print-directory) $(if $(filter 1,$(NO_ADDITIONAL_J)),,-j $(shell sh build/script/nproc.sh) NO_ADDITIONAL_J=1)
+MAKE := $(MAKE) $(if $(filter 3,$(V) $(VERBOSE)),,--no-print-directory)
 
 CC := clang
 AR := ar
 ARFLAGS := cr$(if $(filter 3,$(V) $(VERBOSE)),v,)
-CPPFLAGS := $(shell find . -type d -mindepth 1 | grep -v /test/ | sed "s/^/-I /" | xargs)
+CPPFLAGS := $(shell find ../../../src -type d -mindepth 1 | grep -v /test/ | sed "s/^/-I /" | xargs)
 CFLAGS := -Wall -Wextra -Werror -std=c99 -pedantic $(CPPFLAGS)
 
 SRC_DIR := .
 OBJ_DIR := .cache
 
-SRCS_LIBFT := $(shell find . -name "ft_*.c" | grep -v /test/ | xargs)
+SRCS := $(shell find . -name "*.c")
 
 PROFILE ?= release
 ifeq ($(PROFILE),release)
@@ -45,9 +45,7 @@ fclean:
 re:
 	$(Q3)$(MAKE) NO_ADDITIONAL_J=1 fclean
 	$(Q3)$(MAKE) NO_ADDITIONAL_J=1 all
-test:
-	$(Q1)find . -type d -mindepth 1 -name "test" | xargs -L1 -I {} $(MAKE) -C {} test
-.PHONY: all bonus clean fclean re test
+.PHONY: all bonus clean fclean re
 
 $(OBJ_DIR)/%.a:
 	$(Q3)mkdir -p $(@D)
@@ -59,7 +57,12 @@ $(OBJ_DIR)/%$(SUFFIX).o: %.c
 	$(Q3)mkdir -p $(@D)
 	$(Q2)$(CC) $(CFLAGS) -MJ $@.compile_commands.part.json -MMD -o $@ -c $<
 
-$(OBJ_DIR)/libft$(SUFFIX).a: $(patsubst ./%.c,$(OBJ_DIR)/%$(SUFFIX).o,$(SRCS_LIBFT))
+$(OBJ_DIR)/tester$(SUFFIX).a: $(patsubst ./%.c,$(OBJ_DIR)/%$(SUFFIX).o,$(SRCS))
+$(OBJ_DIR)/test$(SUFFIX).exe: $(OBJ_DIR)/tester$(SUFFIX).a ../../../src/.cache/libft$(SUFFIX).a
 
-# dependencies
--include $(patsubst ./%.c,$(OBJ_DIR)/%$(SUFFIX).d,$(SRCS))
+.PHONY: build
+build: $(OBJ_DIR)/tester$(SUFFIX).a
+
+.PHONY: test
+test: $(OBJ_DIR)/test$(SUFFIX).exe
+	$(Q1)sh test.sh $(OBJ_DIR)/test$(SUFFIX).exe

@@ -47,22 +47,22 @@ test:
 	$(Q2)make -C src PROFILE=release TARGET=production SANITIZER=address .cache/libft.production.release.address.a || echo "[WARNING] Failed to build release/development/address" 1>&2
 	$(Q2)make -C src PROFILE=release TARGET=production SANITIZER=memory .cache/libft.production.release.memory.a || echo "[WARNING] Failed to build release/development/memory" 1>&2
 	$(Q2)make -C src PROFILE=release TARGET=production SANITIZER=leak .cache/libft.production.release.leak.a || echo "[WARNING] Failed to build release/development/leak" 1>&2
-	$(Q2)[ ! -f src/.cache/libft.development.debug.a ] || make -C test PROFILE=debug TARGET=development
+	$(Q2)make -C test PROFILE=debug TARGET=development
 	$(Q2)[ ! -f src/.cache/libft.development.debug.undefined.a ] || make -C test PROFILE=debug TARGET=development SANITIZER=undefined
 	$(Q2)[ ! -f src/.cache/libft.development.debug.address.a ] || make -C test PROFILE=debug TARGET=development SANITIZER=address
 	$(Q2)[ ! -f src/.cache/libft.development.debug.memory.a ] || make -C test PROFILE=debug TARGET=development SANITIZER=memory
 	$(Q2)[ ! -f src/.cache/libft.development.debug.leak.a ] || make -C test PROFILE=debug TARGET=development SANITIZER=leak
-	$(Q2)[ ! -f src/.cache/libft.production.debug.a ] || make -C test PROFILE=debug TARGET=production
+	$(Q2)make -C test PROFILE=debug TARGET=production
 	$(Q2)[ ! -f src/.cache/libft.production.debug.undefined.a ] || make -C test PROFILE=debug TARGET=production SANITIZER=undefined
 	$(Q2)[ ! -f src/.cache/libft.production.debug.address.a ] || make -C test PROFILE=debug TARGET=production SANITIZER=address
 	$(Q2)[ ! -f src/.cache/libft.production.debug.memory.a ] || make -C test PROFILE=debug TARGET=production SANITIZER=memory
 	$(Q2)[ ! -f src/.cache/libft.production.debug.leak.a ] || make -C test PROFILE=debug TARGET=production SANITIZER=leak
-	$(Q2)[ ! -f src/.cache/libft.development.release.a ] || make -C test PROFILE=release TARGET=development
+	$(Q2)make -C test PROFILE=release TARGET=development
 	$(Q2)[ ! -f src/.cache/libft.development.release.undefined.a ] || make -C test PROFILE=release TARGET=development SANITIZER=undefined
 	$(Q2)[ ! -f src/.cache/libft.development.release.address.a ] || make -C test PROFILE=release TARGET=development SANITIZER=address
 	$(Q2)[ ! -f src/.cache/libft.development.release.memory.a ] || make -C test PROFILE=release TARGET=development SANITIZER=memory
 	$(Q2)[ ! -f src/.cache/libft.development.release.leak.a ] || make -C test PROFILE=release TARGET=development SANITIZER=leak
-	$(Q2)[ ! -f src/.cache/libft.production.release.a ] || make -C test PROFILE=release TARGET=production
+	$(Q2)make -C test PROFILE=release TARGET=production
 	$(Q2)[ ! -f src/.cache/libft.production.release.undefined.a ] || make -C test PROFILE=release TARGET=production SANITIZER=undefined
 	$(Q2)[ ! -f src/.cache/libft.production.release.address.a ] || make -C test PROFILE=release TARGET=production SANITIZER=address
 	$(Q2)[ ! -f src/.cache/libft.production.release.memory.a ] || make -C test PROFILE=release TARGET=production SANITIZER=memory
@@ -73,9 +73,10 @@ test:
 .PHONY: pre_dev
 pre_dev:
 	$(Q2)find src -type d -name test | xargs -L1 -I {} $(MAKE) -C {} dev
+	$(Q2)$(MAKE) -C test build PROFILE=debug TARGET=development
 .PHONY: compile_commands.json
 compile_commands.json: pre_dev
-	$(Q2)$(MAKE) -C src -k PROFILE=debug TARGET=development all bonus ; (printf "[" && find src/.cache -name "*.development.debug.o.compile_commands.part.json" | xargs cat && printf "]") > $@
+	$(Q2)$(MAKE) -C src -k PROFILE=debug TARGET=development all bonus ; (echo "[" && find src/.cache -name "*.development.debug.o.compile_commands.part.json" | xargs cat && find test -name "*.development.debug.o.compile_commands.part.json" | xargs cat && echo "]") > $@
 .PHONY: .vscode/launch.json
 .vscode/launch.json: pre_dev
 	$(Q2)(cat template/launch.json.before.txt && find src -name launch.part.json | xargs cat && cat template/launch.json.after.txt) > $@
