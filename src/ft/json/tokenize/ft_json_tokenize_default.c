@@ -25,7 +25,10 @@ static t_err	special_token(
 )
 {
 	*out_next_state = (t_s){FT_JSON_TOKENIZER_STATE_DEFAULT, NULL};
-	return ((c == '[' && ft_json_tokenize_add_simple_token(
+	return (
+		(!c && ft_json_tokenize_add_simple_token(
+				list, FT_JSON_TOKEN_TYPE_EOF))
+		|| (c == '[' && ft_json_tokenize_add_simple_token(
 				list, FT_JSON_TOKEN_TYPE_BRACKET_OPEN))
 		|| (c == ']' && ft_json_tokenize_add_simple_token(
 				list, FT_JSON_TOKEN_TYPE_BRACKET_CLOSE))
@@ -36,7 +39,8 @@ static t_err	special_token(
 		|| (c == ':' && ft_json_tokenize_add_simple_token(
 				list, FT_JSON_TOKEN_TYPE_COLON))
 		|| (c == ',' && ft_json_tokenize_add_simple_token(
-				list, FT_JSON_TOKEN_TYPE_COMMA)));
+				list, FT_JSON_TOKEN_TYPE_COMMA))
+	);
 }
 
 static t_err	transition_to_number(
@@ -98,7 +102,8 @@ t_err	ft_json_tokenize_default(
 {
 	(void)data;
 	*out_next_state = (t_s){FT_JSON_TOKENIZER_STATE_ERROR, NULL};
-	if (c == '[' || c == ']' || c == '{' || c == '}' || c == ':' || c == ',')
+	if (!c
+		|| c == '[' || c == ']' || c == '{' || c == '}' || c == ':' || c == ',')
 		return (special_token(c, list, out_next_state));
 	else if (c == 't')
 		*out_next_state = (t_s){FT_JSON_TOKENIZER_STATE_KEYWORD_T, NULL};
