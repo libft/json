@@ -234,6 +234,8 @@ typedef struct s_ft_json_tokenizer_state_number
 	double									value;
 	double									current_digit;
 	int										sign;
+	int										exp;
+	int										exp_sign;
 }	t_ft_json_tokenizer_state_number;
 
 t_err	ft_json_tokenize_add_simple_token(

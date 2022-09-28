@@ -52,6 +52,8 @@ static t_err	transition_to_number(
 	result->current_digit = 1;
 	result->value = 0;
 	result->sign = 1;
+	result->exp = 0;
+	result->exp_sign = 1;
 	out_next_state->data = result;
 	out_next_state->state = FT_JSON_TOKENIZER_STATE_NUMBER_INTEGER;
 	if (c == '-')

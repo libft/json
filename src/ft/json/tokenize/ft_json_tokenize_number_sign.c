@@ -14,6 +14,8 @@
 
 #include <stdlib.h>
 
+typedef t_ft_json_tokenizer_state	t_s;
+
 t_err	ft_json_tokenize_number_sign(
 	char c,
 	t_ft_json_token_list *list,
@@ -27,18 +29,12 @@ t_err	ft_json_tokenize_number_sign(
 	if ('0' <= c && c <= '9')
 	{
 		d->value = d->value * 10 + (c - '0');
-		*out_next_state = (t_ft_json_tokenizer_state){
-			FT_JSON_TOKENIZER_STATE_NUMBER_INTEGER,
-			data
-		};
+		*out_next_state = (t_s){FT_JSON_TOKENIZER_STATE_NUMBER_INTEGER, data};
 	}
 	else
 	{
 		free(data);
-		*out_next_state = (t_ft_json_tokenizer_state){
-			FT_JSON_TOKENIZER_STATE_ERROR,
-			NULL
-		};
+		*out_next_state = (t_s){FT_JSON_TOKENIZER_STATE_ERROR, NULL};
 	}
 	return (false);
 }
