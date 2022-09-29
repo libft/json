@@ -38,6 +38,69 @@ char	*read_file_contents(const char *filename)
 	return (str);
 }
 
+t_err	print_token_normal(t_ft_json_token *token)
+{
+	if (*token->type == FT_JSON_TOKEN_TYPE_NUMBER)
+		return (printf("NUMBER - %lf\n", token->number->value) < 0);
+	if (*token->type == FT_JSON_TOKEN_TYPE_STRING)
+		return (printf("STRING - %s\n", token->string->value) < 0);
+	return (true);
+}
+
+t_err	print_token_special(t_ft_json_token *token)
+{
+	if (*token->type == FT_JSON_TOKEN_TYPE_EOF)
+		return (puts("EOF") < 0);
+	if (*token->type == FT_JSON_TOKEN_TYPE_NULL)
+		return (puts("NULL") < 0);
+	if (*token->type == FT_JSON_TOKEN_TYPE_COMMA)
+		return (puts("COMMA") < 0);
+	if (*token->type == FT_JSON_TOKEN_TYPE_COLON)
+		return (puts("COLON") < 0);
+	if (*token->type == FT_JSON_TOKEN_TYPE_TRUE)
+		return (puts("TRUE") < 0);
+	if (*token->type == FT_JSON_TOKEN_TYPE_FALSE)
+		return (puts("FALSE") < 0);
+	if (*token->type == FT_JSON_TOKEN_TYPE_BRACE_OPEN)
+		return (puts("BRACE_OPEN") < 0);
+	if (*token->type == FT_JSON_TOKEN_TYPE_BRACE_CLOSE)
+		return (puts("BRACE_CLOSE") < 0);
+	if (*token->type == FT_JSON_TOKEN_TYPE_BRACKET_OPEN)
+		return (puts("BRACKET_OPEN") < 0);
+	if (*token->type == FT_JSON_TOKEN_TYPE_BRACKET_CLOSE)
+		return (puts("BRACKET_CLOSE") < 0);
+	if (*token->type == FT_JSON_TOKEN_TYPE_NUMBER)
+		return (puts("NUMBER") < 0);
+	if (*token->type == FT_JSON_TOKEN_TYPE_STRING)
+		return (puts("STRING") < 0);
+	return (true);
+}
+
+t_err	print_token_list(t_ft_json_token_list list)
+{
+	t_ft_json_token_list_node	*node;
+
+	if (!list.head)
+		return (puts("Invalid token") < 0);
+	node = list.head;
+	while (node)
+	{
+		if (*node->value.type == FT_JSON_TOKEN_TYPE_NUMBER
+			|| *node->value.type == FT_JSON_TOKEN_TYPE_STRING)
+		{
+			if (print_token_normal(&node->value))
+				return (true);
+		}
+		else
+		{
+			if (print_token_normal(&node->value))
+				return (true);
+		}
+		node = node->next;
+	}
+	return (false);
+}
+
 int	main(int argc, char **argv)
 {
 	char					*str;
@@ -50,5 +113,11 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	if (ft_json_tokenize(str, &list))
 		return (EXIT_FAILURE);
+	if (print_token_list(list))
+	{
+		ft_json_token_list_free(list);
+		return (EXIT_FAILURE);
+	}
+	ft_json_token_list_free(list);
 	return (EXIT_SUCCESS);
 }

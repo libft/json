@@ -1,0 +1,16 @@
+{
+  "$id": "miniRT-csg-schema",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "miniRT CSG",
+  "description": "CSG model for miniRT",
+  "type": "object",
+  "properties": {
+    "root": {
+      "type": "object",
+      "description": "root"
+    }
+  },
+  "required": [
+    "root"
+  ]
+}

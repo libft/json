@@ -1,0 +1,30 @@
+{
+  "$schema": "miniRT-csg-schema",
+  "root": {
+    "type": "intersection",
+    "children": [
+      {
+        "type": "sphere",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "radius": 2.5
+      },
+      {
+        "type": "cube",
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "size": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        }
+      }
+    ]
+  }
+}
