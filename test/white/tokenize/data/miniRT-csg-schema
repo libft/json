@@ -3,14 +3,134 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "miniRT CSG",
   "description": "CSG model for miniRT",
-  "type": "object",
-  "properties": {
-    "root": {
-      "type": "object",
-      "description": "root"
+  "unevaluatedProperties": false,
+  "oneOf": [
+    {
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "type of operation",
+          "enum": [
+            "union",
+            "intersection"
+          ]
+        },
+        "children": {
+          "type": "array",
+          "description": "operand of operation",
+          "items": {
+            "$ref": "#"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "children"
+      ]
+    },
+    {
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "type of operation",
+          "enum": [
+            "difference"
+          ]
+        },
+        "from": {
+          "$ref": "#"
+        },
+        "subtract": {
+          "$ref": "#"
+        }
+      },
+      "required": [
+        "type",
+        "from",
+        "subtract"
+      ]
+    },
+    {
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "type of solid geometry",
+          "enum": [
+            "sphere"
+          ]
+        },
+        "position": {
+          "$ref": "#/$defs/position"
+        },
+        "radius": {
+          "type": "number",
+          "description": "radius of sphere",
+          "exclusiveMinimum": 0
+        }
+      },
+      "required": [
+        "type",
+        "position",
+        "radius"
+      ]
+    },
+    {
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "type of solid geometry",
+          "enum": [
+            "cube"
+          ]
+        },
+        "position": {
+          "$ref": "#/$defs/position"
+        },
+        "size": {
+          "$ref": "#/$defs/size"
+        },
+        "rotation": {
+          "$ref": "#/$defs/rotation"
+        }
+      },
+      "required": [
+        "type",
+        "position",
+        "size",
+        "rotation"
+      ]
     }
-  },
-  "required": [
-    "root"
-  ]
+  ],
+  "$defs": {
+    "position": {
+      "type": "array",
+      "items": {
+        "type": "number",
+        "description": "coordinates of the position [x, y, z]"
+      },
+      "minContains": 3,
+      "maxContains": 3
+    },
+    "size": {
+      "type": "array",
+      "items": {
+        "type": "number",
+        "description": "size [w, h, d]",
+        "exclusiveMinimum": 0
+      },
+      "minContains": 3,
+      "maxContains": 3
+    },
+    "rotation": {
+      "type": "array",
+      "items": {
+        "type": "number",
+        "description": "rotation for [y/z plane, x/z plane, x/y plane]",
+        "minimum": 0,
+        "exclusiveMaximum": 1
+      },
+      "minContains": 3,
+      "maxContains": 3
+    }
+  }
 }
