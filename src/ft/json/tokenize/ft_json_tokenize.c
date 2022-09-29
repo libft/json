@@ -40,33 +40,34 @@ static const t_ft_json_tokenizer_state_function	g_state_functions[] = {
 	ft_json_tokenize_number_e_digit,
 };
 
+typedef t_ft_json_tokenizer_state				t_s;
+
 t_err	ft_json_tokenize(
 	const char *str,
 	t_ft_json_token_list *out
 )
 {
-	t_ft_json_tokenizer_state	current_state;
-	t_ft_json_token_list		result;
-	size_t						i;
-	t_err						error;
+	t_s						current_state;
+	size_t					i;
 
-	error = false;
 	current_state.state = FT_JSON_TOKENIZER_STATE_DEFAULT;
 	current_state.data = NULL;
-	result.head = NULL;
-	result.tail = NULL;
-	*out = result;
+	*out = (t_ft_json_token_list){NULL, NULL};
 	i = -1;
-	while (!error && (i++ == (size_t)-1 || str[i - 1]))
-		if (current_state.state == FT_JSON_TOKENIZER_STATE_ERROR
-			|| g_state_functions[current_state.state](
-			*str, &result, current_state.data, &current_state))
-			error = true;
-	if (current_state.state != FT_JSON_TOKENIZER_STATE_DEFAULT)
-		return (false);
-	if (error)
-		ft_json_token_list_free(result);
-	else
-		*out = result;
-	return (error);
+	while (current_state.state != FT_JSON_TOKENIZER_STATE_ERROR
+		&& (i++ == (size_t)-1 || str[i - 1]))
+	{
+		if (g_state_functions[current_state.state](
+			*str, out, current_state.data, &current_state))
+		{
+			ft_json_token_list_free(*out);
+			return (true);
+		}
+	}
+	if (current_state.state == FT_JSON_TOKENIZER_STATE_ERROR)
+	{
+		ft_json_token_list_free(*out);
+		*out = (t_ft_json_token_list){NULL, NULL};
+	}
+	return (false);
 }
