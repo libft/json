@@ -6,7 +6,7 @@ MAKE := $(MAKE) $(if $(filter 3,$(V) $(VERBOSE)),,--no-print-directory)
 CC := clang
 AR := ar
 ARFLAGS := cr$(if $(filter 3,$(V) $(VERBOSE)),v,)
-CPPFLAGS := $(shell find ../../../src -type d -mindepth 1 | grep -v /test/ | sed "s/^/-I /" | xargs)
+CPPFLAGS := $(shell find ../../../src -type d -mindepth 1 | grep -v /test/ | sed "s/^/-I /" | xargs) -I ../../../../../assets/leak_test/include
 CFLAGS := -Wall -Wextra -Werror -std=c99 -pedantic $(CPPFLAGS)
 
 SRC_DIR := .
@@ -58,7 +58,7 @@ $(OBJ_DIR)/%$(SUFFIX).o: %.c
 	$(Q2)$(CC) $(CFLAGS) -MJ $@.compile_commands.part.json -MMD -o $@ -c $<
 
 $(OBJ_DIR)/tester$(SUFFIX).a: $(patsubst ./%.c,$(OBJ_DIR)/%$(SUFFIX).o,$(SRCS))
-$(OBJ_DIR)/test$(SUFFIX).exe: $(OBJ_DIR)/tester$(SUFFIX).a ../../../src/.cache/libft$(SUFFIX).a
+$(OBJ_DIR)/test$(SUFFIX).exe: $(OBJ_DIR)/tester$(SUFFIX).a ../../../src/.cache/libft$(SUFFIX).a ../../../assets/leak_test/libft_leak_test.$(if $(SANITIZER),$(SANITIZER),none).a
 
 .PHONY: build
 build: $(OBJ_DIR)/tester$(SUFFIX).a

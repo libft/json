@@ -27,6 +27,7 @@ re:
 	$(Q3)$(MAKE) all
 test:
 	$(Q2)find src -type d -name test | sort | xargs -L1 $(MAKE) -C
+	$(Q2)make -C assets/leak_test all
 	$(Q2)make -C src PROFILE=debug TARGET=development .cache/libft.development.debug.a
 	$(Q2)make -C src PROFILE=debug TARGET=development SANITIZER=undefined .cache/libft.development.debug.undefined.a || echo "[WARNING] Failed to build debug/development/undefined" 1>&2
 	$(Q2)make -C src PROFILE=debug TARGET=development SANITIZER=address .cache/libft.development.debug.address.a || echo "[WARNING] Failed to build debug/development/address" 1>&2
