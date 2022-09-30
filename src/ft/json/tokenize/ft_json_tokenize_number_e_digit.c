@@ -32,11 +32,7 @@ t_err	ft_json_tokenize_number_e_digit(
 		return (false);
 	}
 	if (ft_json_tokenize_add_number_token(list, d))
-	{
-		free(data);
 		return (true);
-	}
-	free(data);
 	*out_next_state = (t_s){FT_JSON_TOKENIZER_STATE_DEFAULT, NULL};
 	return (ft_json_tokenize_default(c, list, data, out_next_state));
 }
