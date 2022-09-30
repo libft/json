@@ -125,9 +125,100 @@
       "type": "array",
       "items": {
         "type": "number",
-        "description": "rotation for [y/z plane, x/z plane, x/y plane]",
+        "description": "rotation for [x axis, y axis, z axis]",
         "minimum": 0,
         "exclusiveMaximum": 1
+      },
+      "minContains": 3,
+      "maxContains": 3
+    },
+    "texture": {
+      "oneOf": [
+        {
+          "properties": {
+            "type": {
+              "type": "string",
+              "description": "color space",
+              "enum": [
+                "rgb"
+              ]
+            },
+            "value": {
+              "$ref": "#/defs/rgb"
+            }
+          },
+          "required": [
+            "type",
+            "value"
+          ]
+        },
+        {
+          "properties": {
+            "type": {
+              "type": "string",
+              "description": "color space",
+              "enum": [
+                "hsv"
+              ]
+            },
+            "value": {
+              "$ref": "#/defs/hsv"
+            }
+          },
+          "required": [
+            "type",
+            "value"
+          ]
+        },
+        {
+          "properties": {
+            "type": {
+              "type": "string",
+              "description": "color space",
+              "enum": [
+                "hsl"
+              ]
+            },
+            "value": {
+              "$ref": "#/defs/hsv"
+            }
+          },
+          "required": [
+            "type",
+            "value"
+          ]
+        }
+      ]
+    },
+    "rgb": {
+      "type": "array",
+      "items": {
+        "type": "number",
+        "description": "color value [red, green, black]",
+        "minimum": 0,
+        "maximum": 1
+      },
+      "minContains": 3,
+      "maxContains": 3
+    },
+    "hsv": {
+      "type": "array",
+      "items": {
+        "type": "number",
+        "description": "color value [hue, saturation, value]",
+        "minimum": 0,
+        "maximum": 1
+      },
+      "minContains": 3,
+      "maxContains": 3
+    },
+    "hsl": {
+      "type": "array",
+      "items": {
+        "type": "number",
+        "description": "color value [hue, saturation, lightness]",
+        "minimum": 0,
+        "maximum": 1
       },
       "minContains": 3,
       "maxContains": 3
