@@ -8,8 +8,19 @@
   },
   "files.associations": {
     "*.h": "c",
+    "*-schema": "json",
   },
-  "cSpell.userWords": ["minishell"],
+  "json.schemas": [
+    {
+      "fileMatch": [
+        "test/white/tokenize/data/*.json"
+      ],
+      "url": "./test/white/tokenize/data/miniRT-csg-schema",
+    },
+  ],
+  "cSpell.userWords": [
+    "minishell"
+  ],
   "clangd.detectExtensionConflicts": false,
   "C_Cpp.autocomplete": "Disabled",
   "C_Cpp.intelliSenseEngine": "Disabled",

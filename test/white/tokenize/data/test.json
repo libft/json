@@ -1,5 +1,4 @@
 {
-  "$schema": "miniRT-csg-schema",
   "type": "intersection",
   "children": [
     {
