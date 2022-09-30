@@ -30,27 +30,33 @@ static const char *const	g_token_name[] = {
 	"BRACKET_CLOSE",
 };
 
-static char	*read_file_contents(const char *filename)
+static t_err	read_file_contents(const char *filename, char **out)
 {
 	FILE *const		fp = fopen(filename, "rb");
 	unsigned long	length;
-	char			*str;
+	bool			error;
 
-	if (!fp)
-		return (NULL);
-	if (fseek(fp, 0, SEEK_END))
-		return (NULL);
-	length = ftell(fp);
-	if (fseek(fp, 0, SEEK_SET))
-		return (NULL);
-	str = malloc(length + 1);
-	if (!str)
-		return (NULL);
-	if (fread(str, 1, length, fp) != length)
-		return (NULL);
-	fclose(fp);
-	str[length] = '\0';
-	return (str);
+	length = 0;
+	error = !fp;
+	*out = NULL;
+	if (!error && fseek(fp, 0, SEEK_END))
+		error = true;
+	if (!error)
+		length = ftell(fp);
+	if (!error && fseek(fp, 0, SEEK_SET))
+		error = true;
+	if (!error)
+		*out = malloc(length + 1);
+	if (!*out)
+		error = true;
+	if (!error && fread(*out, 1, length, fp) != length)
+		error = true;
+	if (fp)
+		fclose(fp);
+	if (error)
+		free(*out);
+	(*out)[length] = '\0';
+	return (error);
 }
 
 static t_err	print_token_list(t_ft_json_token_list list)
@@ -103,8 +109,7 @@ int	main(int argc, char **argv)
 
 	if (argc < 2)
 		return (EXIT_FAILURE);
-	str = read_file_contents(argv[1]);
-	if (!str)
+	if (read_file_contents(argv[1], &str))
 		return (EXIT_FAILURE);
 	if (ft_json_tokenize(str, &list))
 		return (EXIT_FAILURE);
