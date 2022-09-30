@@ -117,6 +117,7 @@ int	main(int argc, char **argv)
 	if (errno)
 	{
 		printf("leak_test error: %s\n", leak_test_error(errno));
+		return (EXIT_FAILURE);
 	}
 	ft_json_token_list_free(list);
 	return (EXIT_SUCCESS);
