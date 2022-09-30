@@ -6,7 +6,7 @@ MAKE := $(MAKE) $(if $(filter 3,$(V) $(VERBOSE)),,--no-print-directory)
 CC := clang
 AR := ar
 ARFLAGS := cr$(if $(filter 3,$(V) $(VERBOSE)),v,)
-CPPFLAGS := $(shell find ../../../src -type d -mindepth 1 | grep -v /test/ | sed "s/^/-I /" | xargs) -I ../../../../../assets/leak_test/include
+CPPFLAGS := $(shell find ../../../src -type d -mindepth 1 | grep -v /test/ | sed "s/^/-I /" | xargs) -I ../../../assets/leak_test/include
 CFLAGS := -Wall -Wextra -Werror -std=c99 -pedantic $(CPPFLAGS)
 
 SRC_DIR := .

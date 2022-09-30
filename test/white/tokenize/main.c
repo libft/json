@@ -15,6 +15,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "ft/leak_test.h"
+
 static const char *const	g_token_name[] = {
 	"EOF",
 	"NULL",
@@ -80,10 +82,24 @@ static t_err	print_token_list(t_ft_json_token_list list)
 	return (false);
 }
 
+static bool	test_leak(const void *context)
+{
+	const char *const		str = context;
+	t_ft_json_token_list	list;
+
+	leak_test_start();
+	if (ft_json_tokenize(str, &list))
+		return (false);
+	ft_json_token_list_free(list);
+	leak_test_end();
+	return (false);
+}
+
 int	main(int argc, char **argv)
 {
 	char					*str;
 	t_ft_json_token_list	list;
+	int						errno;
 
 	if (argc < 2)
 		return (EXIT_FAILURE);
@@ -96,6 +112,11 @@ int	main(int argc, char **argv)
 	{
 		ft_json_token_list_free(list);
 		return (EXIT_FAILURE);
+	}
+	errno = leak_test(test_leak, str, NULL);
+	if (errno)
+	{
+		printf("leak_test error: %s\n", leak_test_error(errno));
 	}
 	ft_json_token_list_free(list);
 	return (EXIT_SUCCESS);
