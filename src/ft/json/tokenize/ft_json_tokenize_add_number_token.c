@@ -50,6 +50,7 @@ t_err	ft_json_tokenize_add_number_token(
 	}
 	*token = (t_ft_json_token_number){FT_JSON_TOKEN_TYPE_NUMBER, number};
 	node->next = NULL;
+	node->value.number = token;
 	node->free_value = (void (*)(t_ft_json_token))free;
 	if (list->head)
 		list->tail->next = node;

@@ -4,6 +4,6 @@
     {
       "label": "Build test/white/tokenize",
       "type": "shell",
-      "command": "make -C src PROFILE=debug TARGET=development .cache/libft.development.debug.a && make -C test/white/tokenize PROFILE=debug TARGET=development .cache/test.development.debug.exe",
+      "command": "make -C src PROFILE=debug TARGET=development SANITIZER=address .cache/libft.development.debug.address.a && make -C test/white/tokenize PROFILE=debug TARGET=development SANITIZER=address .cache/test.development.debug.address.exe",
       "problemMatcher": ["$gcc"]
     },
