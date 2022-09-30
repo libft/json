@@ -58,7 +58,7 @@ t_err	ft_json_tokenize(
 		&& (i++ == (size_t)-1 || str[i - 1]))
 	{
 		if (g_state_functions[current_state.state](
-			*str, out, current_state.data, &current_state))
+			str[i], out, current_state.data, &current_state))
 		{
 			ft_json_token_list_free(*out);
 			return (true);
