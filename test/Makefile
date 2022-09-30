@@ -8,6 +8,9 @@ all: test
 
 SUB_RULES := test clean fclean build
 
+PROFILE ?= release
+TARGET ?= production
+
 export V
 export TARGET
 export PROFILE
