@@ -42,7 +42,7 @@ t_err	ft_json_tokenize_string_any(
 		*out_next_state = (t_s){FT_JSON_TOKENIZER_STATE_ERROR, NULL};
 		return (false);
 	}
-	*out_next_state = (t_s){FT_JSON_TOKENIZER_STATE_STRING_BACKSLASH, data};
+	*out_next_state = (t_s){FT_JSON_TOKENIZER_STATE_STRING_ANY, data};
 	if (stringbuilder_append_char(((t_x *)data)->stringbuilder, c))
 	{
 		stringbuilder_free(((t_x *)data)->stringbuilder);
