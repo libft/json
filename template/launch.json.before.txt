@@ -1,3 +1,12 @@
 {
   "version": "0.2.0",
   "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug test/white/tokenize",
+      "program": "${workspaceFolder}/test/white/tokenize/.cache/test.development.debug.exe",
+      "args": ["data/miniRT-csg-schema"],
+      "cwd": "${workspaceFolder}/test/white/tokenize",
+      "preLaunchTask": "Build test/white/tokenize",
+    },
