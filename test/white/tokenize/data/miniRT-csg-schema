@@ -20,7 +20,8 @@
           "description": "operand of operation",
           "items": {
             "$ref": "#"
-          }
+          },
+          "minItems": 2
         }
       },
       "required": [
@@ -108,8 +109,8 @@
         "type": "number",
         "description": "coordinates of the position [x, y, z]"
       },
-      "minContains": 3,
-      "maxContains": 3
+      "minItems": 3,
+      "maxItems": 3
     },
     "size": {
       "type": "array",
@@ -118,8 +119,8 @@
         "description": "size [w, h, d]",
         "exclusiveMinimum": 0
       },
-      "minContains": 3,
-      "maxContains": 3
+      "minItems": 3,
+      "maxItems": 3
     },
     "rotation": {
       "type": "array",
@@ -129,8 +130,8 @@
         "minimum": 0,
         "exclusiveMaximum": 1
       },
-      "minContains": 3,
-      "maxContains": 3
+      "minItems": 3,
+      "maxItems": 3
     },
     "texture": {
       "oneOf": [
@@ -144,7 +145,15 @@
               ]
             },
             "value": {
-              "$ref": "#/defs/rgb"
+              "type": "array",
+              "items": {
+                "type": "number",
+                "description": "color value [red, green, black]",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "minItems": 3,
+              "maxItems": 3
             }
           },
           "required": [
@@ -162,7 +171,15 @@
               ]
             },
             "value": {
-              "$ref": "#/defs/hsv"
+              "type": "array",
+              "items": {
+                "type": "number",
+                "description": "color value [hue, saturation, value]",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "minItems": 3,
+              "maxItems": 3
             }
           },
           "required": [
@@ -180,7 +197,15 @@
               ]
             },
             "value": {
-              "$ref": "#/defs/hsv"
+              "type": "array",
+              "items": {
+                "type": "number",
+                "description": "color value [hue, saturation, lightness]",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "minItems": 3,
+              "maxItems": 3
             }
           },
           "required": [
@@ -189,39 +214,6 @@
           ]
         }
       ]
-    },
-    "rgb": {
-      "type": "array",
-      "items": {
-        "type": "number",
-        "description": "color value [red, green, black]",
-        "minimum": 0,
-        "maximum": 1
-      },
-      "minContains": 3,
-      "maxContains": 3
-    },
-    "hsv": {
-      "type": "array",
-      "items": {
-        "type": "number",
-        "description": "color value [hue, saturation, value]",
-        "minimum": 0,
-        "maximum": 1
-      },
-      "minContains": 3,
-      "maxContains": 3
-    },
-    "hsl": {
-      "type": "array",
-      "items": {
-        "type": "number",
-        "description": "color value [hue, saturation, lightness]",
-        "minimum": 0,
-        "maximum": 1
-      },
-      "minContains": 3,
-      "maxContains": 3
     }
   }
 }
