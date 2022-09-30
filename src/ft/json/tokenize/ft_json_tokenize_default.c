@@ -84,7 +84,7 @@ static t_err	transition_to_string(
 	if (!result || !stringbuilder)
 	{
 		free(result);
-		if (!stringbuilder)
+		if (stringbuilder)
 			stringbuilder_free(stringbuilder);
 		return (true);
 	}
