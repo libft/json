@@ -93,7 +93,7 @@ t_err	print_token_list(t_ft_json_token_list list)
 		}
 		else
 		{
-			if (print_token_normal(&node->value))
+			if (print_token_special(&node->value))
 				return (true);
 		}
 		node = node->next;
