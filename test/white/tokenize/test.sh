@@ -2,7 +2,7 @@
 
 set -e
 
-find data -name "*.json" | sed "s/.json//" | while IFS= read -r line
+find data -name "*.json" | sort | sed "s/.json//" | while IFS= read -r line
 do
-  echo $1 "$line.json" | diff - "$line.txt"
+  $1 "$line.json" | cmp -s "$line.txt"
 done
