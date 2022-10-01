@@ -29,8 +29,8 @@ typedef enum e_ft_json_value_type
 
 typedef struct s_ft_json_list_node
 {
-	struct s_ft_json_list_node	*next;
-	union u_ft_json_value_internal		*value;
+	struct s_ft_json_list_node		*next;
+	union u_ft_json_value_internal	*value;
 }	t_ft_json_list_node;
 
 typedef struct s_ft_json_list

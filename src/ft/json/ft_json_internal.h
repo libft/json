@@ -282,4 +282,29 @@ t_err	ft_json_tokenizer_state_number(
 			void **to,
 			char c);
 
+t_err	ft_json_parse_value(
+			t_ft_json_token_list_node *head,
+			t_ft_json_token_list_node *out_next_head,
+			t_ft_json_value_internal *out);
+t_err	ft_json_parse_boolean(
+			t_ft_json_token_list_node *head,
+			t_ft_json_token_list_node *out_next_head,
+			t_ft_json_value_boolean *out);
+t_err	ft_json_parse_number(
+			t_ft_json_token_list_node *head,
+			t_ft_json_token_list_node *out_next_head,
+			t_ft_json_value_number *out);
+t_err	ft_json_parse_string(
+			t_ft_json_token_list_node *head,
+			t_ft_json_token_list_node *out_next_head,
+			t_ft_json_value_string *out);
+t_err	ft_json_parse_list(
+			t_ft_json_token_list_node *head,
+			t_ft_json_token_list_node *out_next_head,
+			t_ft_json_value_list *out);
+t_err	ft_json_parse_dict(
+			t_ft_json_token_list_node *head,
+			t_ft_json_token_list_node *out_next_head,
+			t_ft_json_value_dict *out);
+
 #endif
