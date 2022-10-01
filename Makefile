@@ -52,22 +52,22 @@ test:
 	$(Q2)make -C src PROFILE=release TARGET=production SANITIZER=leak .cache/libft.production.release.leak.a || echo "[WARNING] Failed to build release/development/leak" 1>&2
 	$(Q2)make -C test PROFILE=debug TARGET=development
 	$(Q2)[ ! -f src/.cache/libft.development.debug.undefined.a ] || make -C test PROFILE=debug TARGET=development SANITIZER=undefined
-	$(Q2)[ ! -f src/.cache/libft.development.debug.address.a ] || ASAN_OPTIONS=detect_leaks=1 LSAN_OPTIONS=suppressions=$(shell pwd)/lsan-suppressions.txt make -C test PROFILE=debug TARGET=development SANITIZER=address
+	$(Q2)[ ! -f src/.cache/libft.development.debug.address.a ] || make -C test PROFILE=debug TARGET=development SANITIZER=address
 	$(Q2)[ ! -f src/.cache/libft.development.debug.memory.a ] || make -C test PROFILE=debug TARGET=development SANITIZER=memory
 	$(Q2)[ ! -f src/.cache/libft.development.debug.leak.a ] || LSAN_OPTIONS=suppressions=$(shell pwd)/lsan-suppressions.txt make -C test PROFILE=debug TARGET=development SANITIZER=leak
 	$(Q2)make -C test PROFILE=debug TARGET=production
 	$(Q2)[ ! -f src/.cache/libft.production.debug.undefined.a ] || make -C test PROFILE=debug TARGET=production SANITIZER=undefined
-	$(Q2)[ ! -f src/.cache/libft.production.debug.address.a ] || ASAN_OPTIONS=detect_leaks=1 LSAN_OPTIONS=suppressions=$(shell pwd)/lsan-suppressions.txt make -C test PROFILE=debug TARGET=production SANITIZER=address
+	$(Q2)[ ! -f src/.cache/libft.production.debug.address.a ] || make -C test PROFILE=debug TARGET=production SANITIZER=address
 	$(Q2)[ ! -f src/.cache/libft.production.debug.memory.a ] || make -C test PROFILE=debug TARGET=production SANITIZER=memory
 	$(Q2)[ ! -f src/.cache/libft.production.debug.leak.a ] || LSAN_OPTIONS=suppressions=$(shell pwd)/lsan-suppressions.txt make -C test PROFILE=debug TARGET=production SANITIZER=leak
 	$(Q2)make -C test PROFILE=release TARGET=development
 	$(Q2)[ ! -f src/.cache/libft.development.release.undefined.a ] || make -C test PROFILE=release TARGET=development SANITIZER=undefined
-	$(Q2)[ ! -f src/.cache/libft.development.release.address.a ] || ASAN_OPTIONS=detect_leaks=1 LSAN_OPTIONS=suppressions=$(shell pwd)/lsan-suppressions.txt make -C test PROFILE=release TARGET=development SANITIZER=address
+	$(Q2)[ ! -f src/.cache/libft.development.release.address.a ] || make -C test PROFILE=release TARGET=development SANITIZER=address
 	$(Q2)[ ! -f src/.cache/libft.development.release.memory.a ] || make -C test PROFILE=release TARGET=development SANITIZER=memory
 	$(Q2)[ ! -f src/.cache/libft.development.release.leak.a ] || LSAN_OPTIONS=suppressions=$(shell pwd)/lsan-suppressions.txt make -C test PROFILE=release TARGET=development SANITIZER=leak
 	$(Q2)make -C test PROFILE=release TARGET=production
 	$(Q2)[ ! -f src/.cache/libft.production.release.undefined.a ] || make -C test PROFILE=release TARGET=production SANITIZER=undefined
-	$(Q2)[ ! -f src/.cache/libft.production.release.address.a ] || ASAN_OPTIONS=detect_leaks=1 LSAN_OPTIONS=suppressions=$(shell pwd)/lsan-suppressions.txt make -C test PROFILE=release TARGET=production SANITIZER=address
+	$(Q2)[ ! -f src/.cache/libft.production.release.address.a ] || make -C test PROFILE=release TARGET=production SANITIZER=address
 	$(Q2)[ ! -f src/.cache/libft.production.release.memory.a ] || make -C test PROFILE=release TARGET=production SANITIZER=memory
 	$(Q2)[ ! -f src/.cache/libft.production.release.leak.a ] || LSAN_OPTIONS=suppressions=$(shell pwd)/lsan-suppressions.txt make -C test PROFILE=release TARGET=production SANITIZER=leak
 	@echo "Some test might need manual review"
