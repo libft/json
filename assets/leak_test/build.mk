@@ -21,6 +21,8 @@ fclean: clean
 	$Q$(CC) $(CFLAGS) -c $< -o $@
 %.address.o: ../%.c
 	$Q$(CC) $(CFLAGS) -c $< -o $@ -fsanitize=address
+%.leak.o: ../%.c
+	$Q$(CC) $(CFLAGS) -c $< -o $@ -fsanitize=leak
 %.memory.o: ../%.c
 	$Q$(CC) $(CFLAGS) -c $< -o $@ -fsanitize=memory
 %.undefined.o: ../%.c
@@ -28,6 +30,7 @@ fclean: clean
 
 libft_$(NAME).none.a: $(patsubst ../%.c,%.none.o,$(SRCS))
 libft_$(NAME).address.a: $(patsubst ../%.c,%.address.o,$(SRCS))
+libft_$(NAME).leak.a: $(patsubst ../%.c,%.leak.o,$(SRCS))
 libft_$(NAME).memory.a: $(patsubst ../%.c,%.memory.o,$(SRCS))
 libft_$(NAME).undefined.a: $(patsubst ../%.c,%.undefined.o,$(SRCS))
 %.a:
