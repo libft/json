@@ -106,24 +106,23 @@ int	main(int argc, char **argv)
 	char					*str;
 	t_ft_json_token_list	list;
 	int						errno;
+	t_err					error;
 
-	if (argc < 2)
+	if (argc < 2 || read_file_contents(argv[1], &str))
 		return (EXIT_FAILURE);
-	if (read_file_contents(argv[1], &str))
-		return (EXIT_FAILURE);
-	if (ft_json_tokenize(str, &list))
-		return (EXIT_FAILURE);
-	if (print_token_list(list))
+	errno = leak_test(test_leak, str, NULL);
+	error = !!errno;
+	list = (t_ft_json_token_list){NULL, NULL};
+	if (!error && ft_json_tokenize(str, &list))
+		error = true;
+	free(str);
+	if (!error && print_token_list(list))
 	{
 		ft_json_token_list_free(list);
-		return (EXIT_FAILURE);
-	}
-	errno = leak_test(test_leak, str, NULL);
-	if (errno)
-	{
-		printf("leak_test error: %s\n", leak_test_error(errno));
-		return (EXIT_FAILURE);
+		error = true;
 	}
 	ft_json_token_list_free(list);
+	if (error)
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
