@@ -30,7 +30,7 @@ typedef enum e_ft_json_value_type
 typedef struct s_ft_json_list_node
 {
 	struct s_ft_json_list_node	*next;
-	union u_ft_json_value		*value;
+	union u_ft_json_value_internal		*value;
 }	t_ft_json_list_node;
 
 typedef struct s_ft_json_list
@@ -38,19 +38,6 @@ typedef struct s_ft_json_list
 	t_ft_json_list_node	*head;
 	t_ft_json_list_node	*tail;
 }	t_ft_json_list;
-
-typedef struct s_ft_json_dict_node
-{
-	struct s_ft_json_dict_node	*next;
-	char						*key;
-	union u_ft_json_value		*value;
-}	t_ft_json_dict_node;
-
-typedef struct s_ft_json_dict
-{
-	t_ft_json_dict_node	*head;
-	t_ft_json_dict_node	*tail;
-}	t_ft_json_dict;
 
 typedef struct s_ft_json_value_boolean
 {
@@ -76,23 +63,7 @@ typedef struct s_ft_json_value_list
 	t_ft_json_list			value;
 }	t_ft_json_value_list;
 
-typedef struct s_ft_json_value_dict
-{
-	t_ft_json_value_type	type;
-	t_ft_json_dict			value;
-}	t_ft_json_value_dict;
-
-typedef union u_ft_json_value
-{
-	t_ft_json_value_type	type;
-	t_ft_json_value_boolean	boolean;
-	t_ft_json_value_number	number;
-	t_ft_json_value_string	string;
-	t_ft_json_value_list	list;
-	t_ft_json_value_dict	dict;
-}	t_ft_json_value;
-
-t_err	ft_json_parse(const char *str, t_ft_json_value **out);
-t_err	ft_json_stringify(const t_ft_json_value **value, char *out);
+t_err	ft_json_parse(const char *str, void **out);
+t_err	ft_json_stringify(const void *value, char *out);
 
 #endif
