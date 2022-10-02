@@ -1,13 +1,17 @@
 # libft_json
 
+json parser
+
 ## Initialize
 
 ```shell
-cmake -B builddir
+sh init.sh
 ```
 
-## Build
+please run init.sh to enable 42header remover
+
+## Test
 
 ```shell
-cmake --build builddir
+make
 ```
