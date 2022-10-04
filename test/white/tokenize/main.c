@@ -92,8 +92,11 @@ static bool	test_leak(const void *context)
 {
 	const char *const		str = context;
 	t_ft_json_token_list	list;
+	void *volatile			prevent_failure;
 
 	leak_test_start();
+	prevent_failure = malloc(0);
+	free(prevent_failure);
 	if (ft_json_tokenize(str, &list))
 		return (false);
 	ft_json_token_list_free(list);
@@ -112,6 +115,8 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	errno = leak_test(test_leak, str, NULL);
 	error = !!errno;
+	if (error)
+		printf("leak_test: %s\n", leak_test_error(errno));
 	list = (t_ft_json_token_list){NULL, NULL};
 	if (!error && ft_json_tokenize(str, &list))
 		error = true;
