@@ -1,0 +1,8 @@
+root = false
+
+[*.txt]
+insert_final_newline = true
+
+[*.json]
+insert_final_newline = false
+trim_trailing_whitespace = false
