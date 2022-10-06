@@ -81,7 +81,9 @@ t_err	ft_json_parse_value(
 		|| *head->value.type == FT_JSON_TOKEN_TYPE_STRING)
 		return (special(head, out_next_head, out));
 	if (*head->value.type == FT_JSON_TOKEN_TYPE_BRACE_OPEN)
-	{
-		// TODO:
-	}
+		return (ft_json_parse_dict(head, out_next_head, &out->dict));
+	if (*head->value.type == FT_JSON_TOKEN_TYPE_BRACKET_OPEN)
+		return (ft_json_parse_list(head, out_next_head, &out->list));
+	out->type = FT_JSON_VALUE_TYPE_ERROR;
+	return (false);
 }
