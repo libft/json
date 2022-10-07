@@ -283,16 +283,29 @@ t_err	ft_json_tokenizer_state_number(
 			char c);
 
 t_err	ft_json_parse_value(
-			t_ft_json_token_list_node *head,
-			t_ft_json_token_list_node *out_next_head,
+			t_ft_json_token_list_node **head,
 			t_ft_json_value_internal *out);
 t_err	ft_json_parse_list(
-			t_ft_json_token_list_node *head,
-			t_ft_json_token_list_node *out_next_head,
+			t_ft_json_token_list_node **head,
 			t_ft_json_value_list *out);
 t_err	ft_json_parse_dict(
-			t_ft_json_token_list_node *head,
-			t_ft_json_token_list_node *out_next_head,
+			t_ft_json_token_list_node **head,
 			t_ft_json_value_dict *out);
+
+bool	ft_json_parse_next_is_value(
+			t_ft_json_token_type token_type);
+bool	ft_json_parse_next_is_list(
+			t_ft_json_token_type token_type);
+bool	ft_json_parse_next_is_dict(
+			t_ft_json_token_type token_type);
+
+void	ft_json_value_internal_free(
+			t_ft_json_value_internal *value);
+void	ft_json_value_string_free(
+			t_ft_json_value_string *value);
+void	ft_json_value_list_free(
+			t_ft_json_value_list *value);
+void	ft_json_value_dict_free(
+			t_ft_json_value_dict *value);
 
 #endif
