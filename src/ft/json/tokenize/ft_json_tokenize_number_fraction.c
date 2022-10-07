@@ -30,7 +30,7 @@ t_err	ft_json_tokenize_number_fraction(
 		*out_next_state = (t_s){FT_JSON_TOKENIZER_STATE_NUMBER_E, data};
 		return (false);
 	}
-	if ('0' < c && c <= '9')
+	if ('0' <= c && c <= '9')
 	{
 		d->current_digit /= 10;
 		d->value += d->current_digit * (c - '0');

@@ -26,7 +26,7 @@ t_err	ft_json_tokenize_number_dot(
 	t_ft_json_tokenizer_state_number *const	d = data;
 
 	(void)list;
-	if ('0' < c && c <= '9')
+	if ('0' <= c && c <= '9')
 	{
 		d->current_digit /= 10;
 		d->value += d->current_digit * (c - '0');

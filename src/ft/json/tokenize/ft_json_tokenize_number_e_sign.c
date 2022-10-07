@@ -26,7 +26,7 @@ t_err	ft_json_tokenize_number_e_sign(
 	t_ft_json_tokenizer_state_number *const	d = data;
 
 	(void)list;
-	if ('0' < c && c <= '9')
+	if ('0' <= c && c <= '9')
 	{
 		d->exp = d->exp * 10 + (c - '0');
 		*out_next_state = (t_s){FT_JSON_TOKENIZER_STATE_NUMBER_E_DIGIT, data};
