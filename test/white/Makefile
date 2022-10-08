@@ -11,6 +11,7 @@ SUB_RULES := test clean fclean build
 .PHONY: $(SUB_RULES)
 $(SUB_RULES):
 	$(Q2)$(MAKE) -C tokenize $@
+	$(Q2)$(MAKE) -C parse $@
 
 .PHONY: re
 re:

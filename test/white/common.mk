@@ -36,7 +36,7 @@ SUFFIX := .$(TARGET).$(PROFILE)$(if $(SANITIZER),.$(SANITIZER))
 CFLAGS += $(if $(SANITIZER),-fsanitize=$(SANITIZER),)
 LDFLAGS += $(if $(SANITIZER),-fsanitize=$(SANITIZER),)
 
-all: $(OBJ_DIR)/libft$(SUFFIX).a
+all: test
 bonus: all
 clean:
 	$(Q1)rm -rf $(OBJ_DIR)
