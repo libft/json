@@ -35,8 +35,8 @@ test:
 
 .PHONY: pre_dev
 pre_dev:
-	$(Q2)find src -type d -name test | xargs -L1 -I {} $(MAKE) -C {} dev
-	$(Q2)$(MAKE) -C test build PROFILE=debug TARGET=development
+	-$(Q2)find src -type d -name test | xargs -L1 -I {} $(MAKE) -C {} dev
+	-$(Q2)$(MAKE) -C test build PROFILE=debug TARGET=development
 .PHONY: compile_commands.json
 compile_commands.json: pre_dev
 	$(Q2)$(MAKE) -C src -k PROFILE=debug TARGET=development all bonus ; (echo "[" && find src/.cache -name "*.development.debug.o.compile_commands.part.json" | xargs cat && find test -name "*.development.debug.o.compile_commands.part.json" | xargs cat && echo "]") > $@
