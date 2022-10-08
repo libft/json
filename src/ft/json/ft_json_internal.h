@@ -308,4 +308,8 @@ void	ft_json_value_list_free(
 void	ft_json_value_dict_free(
 			t_ft_json_value_dict *value);
 
+t_err	ft_json_parse_internal(
+			const char *str,
+			t_ft_json_value_internal *out);
+
 #endif
