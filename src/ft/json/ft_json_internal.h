@@ -17,6 +17,29 @@
 
 # include "ft_stringbuilder.h"
 
+typedef enum e_ft_json_value_type
+{
+	FT_JSON_VALUE_TYPE_ERROR,
+	FT_JSON_VALUE_TYPE_NULL,
+	FT_JSON_VALUE_TYPE_BOOLEAN,
+	FT_JSON_VALUE_TYPE_NUMBER,
+	FT_JSON_VALUE_TYPE_STRING,
+	FT_JSON_VALUE_TYPE_LIST,
+	FT_JSON_VALUE_TYPE_DICT,
+}	t_ft_json_value_type;
+
+typedef struct s_ft_json_list_node
+{
+	struct s_ft_json_list_node		*next;
+	union u_ft_json_value_internal	*value;
+}	t_ft_json_list_node;
+
+typedef struct s_ft_json_list
+{
+	t_ft_json_list_node	*head;
+	t_ft_json_list_node	*tail;
+}	t_ft_json_list;
+
 typedef struct s_ft_json_dict_node
 {
 	struct s_ft_json_dict_node		*next;
@@ -29,6 +52,30 @@ typedef struct s_ft_json_dict
 	t_ft_json_dict_node	*head;
 	t_ft_json_dict_node	*tail;
 }	t_ft_json_dict;
+
+typedef struct s_ft_json_value_boolean
+{
+	t_ft_json_value_type	type;
+	bool					value;
+}	t_ft_json_value_boolean;
+
+typedef struct s_ft_json_value_number
+{
+	t_ft_json_value_type	type;
+	double					value;
+}	t_ft_json_value_number;
+
+typedef struct s_ft_json_value_string
+{
+	t_ft_json_value_type	type;
+	char					*value;
+}	t_ft_json_value_string;
+
+typedef struct s_ft_json_value_list
+{
+	t_ft_json_value_type	type;
+	t_ft_json_list			value;
+}	t_ft_json_value_list;
 
 typedef struct s_ft_json_value_dict
 {
