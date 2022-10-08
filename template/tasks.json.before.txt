@@ -7,3 +7,9 @@
       "command": "make -C src PROFILE=debug TARGET=development SANITIZER=address .cache/libft.development.debug.address.a && make -C test/white/tokenize PROFILE=debug TARGET=development SANITIZER=address .cache/test.development.debug.address.exe",
       "problemMatcher": ["$gcc"]
     },
+    {
+      "label": "Build test/white/parse",
+      "type": "shell",
+      "command": "make -C src PROFILE=debug TARGET=development SANITIZER=address .cache/libft.development.debug.address.a && make -C test/white/parse PROFILE=debug TARGET=development SANITIZER=address .cache/test.development.debug.address.exe",
+      "problemMatcher": ["$gcc"]
+    },

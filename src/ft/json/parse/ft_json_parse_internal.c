@@ -20,9 +20,9 @@ t_err	ft_json_parse_internal(
 	t_ft_json_token_list		token_list;
 	t_ft_json_token_list_node	*head;
 
-	if (ft_json_tokenize(str, &token_list))
+	if (ft_json_tokenize(str, &token_list) || !token_list.head)
 		return (true);
-	if (token_list.tail != FT_JSON_TOKEN_TYPE_EOF)
+	if (token_list.tail->value.type != FT_JSON_TOKEN_TYPE_EOF)
 	{
 		out->type = FT_JSON_VALUE_TYPE_ERROR;
 		return (false);

@@ -10,3 +10,12 @@
       "cwd": "${workspaceFolder}/test/white/tokenize",
       "preLaunchTask": "Build test/white/tokenize",
     },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug test/white/parse",
+      "program": "${workspaceFolder}/test/white/parse/.cache/test.development.debug.address.exe",
+      "args": ["../data/miniRT-csg-schema"],
+      "cwd": "${workspaceFolder}/test/white/parse",
+      "preLaunchTask": "Build test/white/parse",
+    },
