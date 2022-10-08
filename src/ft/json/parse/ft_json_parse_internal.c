@@ -22,7 +22,7 @@ t_err	ft_json_parse_internal(
 
 	if (ft_json_tokenize(str, &token_list) || !token_list.head)
 		return (true);
-	if (token_list.tail->value.type != FT_JSON_TOKEN_TYPE_EOF)
+	if (*token_list.tail->value.type != FT_JSON_TOKEN_TYPE_EOF)
 	{
 		out->type = FT_JSON_VALUE_TYPE_ERROR;
 		return (false);
@@ -33,13 +33,13 @@ t_err	ft_json_parse_internal(
 		ft_json_token_list_free(token_list);
 		return (true);
 	}
-	if (*(*head).value.type != FT_JSON_TOKEN_TYPE_EOF)
+	if (*head->value.type != FT_JSON_TOKEN_TYPE_EOF)
 	{
 		ft_json_token_list_free(token_list);
 		ft_json_value_internal_free(out);
 		out->type = FT_JSON_VALUE_TYPE_ERROR;
 		return (false);
 	}
-	ft_json_value_internal_free(out);
+	ft_json_token_list_free(token_list);
 	return (false);
 }

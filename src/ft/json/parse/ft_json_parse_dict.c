@@ -33,7 +33,7 @@ static inline char	*ft_sd(const char *src)
 		return (NULL);
 	tmp = src;
 	temp = result;
-	while (*src)
+	while (*tmp)
 		*temp++ = *tmp++;
 	*temp = '\0';
 	return (result);
@@ -49,6 +49,7 @@ static t_err	append_entry(
 	t_ft_json_value_internal *const	value
 		= malloc(sizeof(t_ft_json_value_internal));
 
+	*head = (*head)->next->next;
 	if (!node || !key || !value || ft_json_parse_value(head, value))
 	{
 		free(node);
@@ -115,8 +116,8 @@ t_err	ft_json_parse_dict(
 	out->value.tail = NULL;
 	if (fill_entries(&curr, out))
 		return (true);
-	if (*curr->value.type != FT_JSON_TOKEN_TYPE_BRACE_CLOSE
-		|| out->value.tail->value->type == FT_JSON_VALUE_TYPE_ERROR)
+	if (*curr->value.type != FT_JSON_TOKEN_TYPE_BRACE_CLOSE || (out->value.tail
+			&& out->value.tail->value->type == FT_JSON_VALUE_TYPE_ERROR))
 	{
 		ft_json_value_dict_free(out);
 		out->type = FT_JSON_VALUE_TYPE_ERROR;

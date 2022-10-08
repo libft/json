@@ -33,7 +33,7 @@ static inline t_err	ft_strdup(const char *src, char **out)
 		return (true);
 	tmp = src;
 	temp = result;
-	while (*src)
+	while (*tmp)
 		*temp++ = *tmp++;
 	*temp = '\0';
 	*out = result;
