@@ -14,7 +14,7 @@
 
 #include <stdlib.h>
 
-t_err	ft_strdup(const char *src, char **out)
+static inline t_err	ft_strdup(const char *src, char **out)
 {
 	size_t		length;
 	char		*result;
