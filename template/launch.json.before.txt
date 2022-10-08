@@ -6,7 +6,7 @@
       "request": "launch",
       "name": "Debug test/white/tokenize",
       "program": "${workspaceFolder}/test/white/tokenize/.cache/test.development.debug.address.exe",
-      "args": ["data/miniRT-csg-schema"],
+      "args": ["../data/miniRT-csg-schema"],
       "cwd": "${workspaceFolder}/test/white/tokenize",
       "preLaunchTask": "Build test/white/tokenize",
     },
