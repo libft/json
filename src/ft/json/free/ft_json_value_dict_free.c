@@ -26,6 +26,7 @@ void	ft_json_value_dict_free(
 		value->value.head = node->next;
 		free(node->key);
 		ft_json_value_internal_free(node->value);
+		free(node->value);
 		free(node);
 	}
 }
