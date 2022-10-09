@@ -48,8 +48,6 @@ static t_err	fill_items(
 		return (false);
 	if (append_item(head, out))
 		return (true);
-	if (out->value.tail == FT_JSON_VALUE_TYPE_ERROR)
-		return (false);
 	while (out->value.tail->value->type != FT_JSON_VALUE_TYPE_ERROR
 		&& *(*head)->value.type == FT_JSON_TOKEN_TYPE_COMMA
 		&& ft_json_parse_next_is_value(*(*head)->next->value.type))
