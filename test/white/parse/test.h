@@ -15,6 +15,6 @@
 
 # include "ft_json_internal.h"
 
-t_err	print_tree(t_ft_json_value_internal value);
+t_err	print_tree(t_ft_json_value_internal value, int depth);
 
 #endif

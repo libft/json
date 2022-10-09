@@ -60,7 +60,7 @@ int	main(int argc, char **argv)
 	if (result.type == FT_JSON_VALUE_TYPE_ERROR)
 		error = puts("Invalid JSON") < 0;
 	else
-		error = print_tree(result);
+		error = print_tree(result, 0);
 	ft_json_value_internal_free(&result);
 	if (error)
 		return (EXIT_FAILURE);
