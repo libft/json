@@ -45,6 +45,9 @@ static t_err	special(
 	t_ft_json_value_internal *out
 )
 {
+	t_err	result;
+
+	result = false;
 	if (*(*head)->value.type == FT_JSON_TOKEN_TYPE_NULL)
 		out->type = FT_JSON_VALUE_TYPE_NULL;
 	else if (*(*head)->value.type == FT_JSON_TOKEN_TYPE_TRUE
@@ -61,13 +64,12 @@ static t_err	special(
 	else if (*(*head)->value.type == FT_JSON_TOKEN_TYPE_STRING)
 	{
 		out->type = FT_JSON_VALUE_TYPE_STRING;
-		*head = (*head)->next;
-		return (ft_strdup((*head)->value.string->value, &out->string.value));
+		result = ft_strdup((*head)->value.string->value, &out->string.value);
 	}
 	else
 		return (true);
 	*head = (*head)->next;
-	return (false);
+	return (result);
 }
 
 t_err	ft_json_parse_value(

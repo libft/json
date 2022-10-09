@@ -20,9 +20,9 @@ void	ft_json_value_dict_free(
 {
 	t_ft_json_dict_node	*node;
 
-	node = value->value.head;
-	while (node)
+	while (value->value.head)
 	{
+		node = value->value.head;
 		value->value.head = node->next;
 		free(node->key);
 		ft_json_value_internal_free(node->value);
