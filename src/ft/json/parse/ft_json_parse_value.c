@@ -45,25 +45,28 @@ static t_err	special(
 	t_ft_json_value_internal *out
 )
 {
-	*head = (*head)->next;
 	if (*(*head)->value.type == FT_JSON_TOKEN_TYPE_NULL)
 		out->type = FT_JSON_VALUE_TYPE_NULL;
-	if (*(*head)->value.type == FT_JSON_TOKEN_TYPE_TRUE
+	else if (*(*head)->value.type == FT_JSON_TOKEN_TYPE_TRUE
 		|| *(*head)->value.type == FT_JSON_TOKEN_TYPE_FALSE)
 	{
 		out->type = FT_JSON_VALUE_TYPE_BOOLEAN;
 		out->boolean.value = *(*head)->value.type == FT_JSON_TOKEN_TYPE_TRUE;
 	}
-	if (*(*head)->value.type == FT_JSON_TOKEN_TYPE_NUMBER)
+	else if (*(*head)->value.type == FT_JSON_TOKEN_TYPE_NUMBER)
 	{
 		out->type = FT_JSON_VALUE_TYPE_NUMBER;
 		out->number.value = (*head)->value.number->value;
 	}
-	if (*(*head)->value.type == FT_JSON_TOKEN_TYPE_STRING)
+	else if (*(*head)->value.type == FT_JSON_TOKEN_TYPE_STRING)
 	{
 		out->type = FT_JSON_VALUE_TYPE_STRING;
+		*head = (*head)->next;
 		return (ft_strdup((*head)->value.string->value, &out->string.value));
 	}
+	else
+		return (true);
+	*head = (*head)->next;
 	return (false);
 }
 
