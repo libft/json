@@ -47,11 +47,23 @@ static t_err	read_file_contents(const char *filename, char **out)
 	return (error);
 }
 
+static bool	test_leak(const void *context)
+{
+	const char *const			str = context;
+	t_ft_json_value_internal	result;
+
+	leak_test_start();
+	if (!ft_json_parse_internal(str, &result))
+		ft_json_value_internal_free(&result);
+	return (false);
+}
+
 int	main(int argc, char **argv)
 {
 	char						*str;
 	t_ft_json_value_internal	result;
 	t_err						error;
+	int							errno;
 
 	if (argc < 2
 		|| read_file_contents(argv[1], &str)
@@ -64,5 +76,12 @@ int	main(int argc, char **argv)
 	ft_json_value_internal_free(&result);
 	if (error)
 		return (EXIT_FAILURE);
+	errno = leak_test(test_leak, str, NULL);
+	error = !!errno;
+	if (error)
+	{
+		printf("leak_test: %s\n", leak_test_error(errno));
+		return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }
