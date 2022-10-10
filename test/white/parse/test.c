@@ -18,14 +18,14 @@ static t_err	print_string(t_ft_json_value_string value, int depth)
 {
 	char	*str;
 
-	if (printf("%*sstring\n%*s|", depth, "", depth + 1, "") < 0)
+	if (printf("%*sstring: ", depth, "") < 0)
 		return (true);
 	str = value.value - 1;
 	while (*++str)
 	{
-		if (printf("%c", *str) < 0)
+		if (*str == '\n' && printf("\n") < 0)
 			return (true);
-		if (*str == '\n' && printf("%*s|", depth + 1, "") < 0)
+		if (*str != '\n' && printf("%c", *str) < 0)
 			return (true);
 	}
 	if (printf("\n") < 0)

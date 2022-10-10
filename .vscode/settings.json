@@ -9,6 +9,7 @@
   "files.associations": {
     "*.h": "c",
     "*-schema": "json",
+    "*.tree": "plaintext",
   },
   "json.schemas": [
     {

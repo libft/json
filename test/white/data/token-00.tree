@@ -1,0 +1,42 @@
+dict
+ entry
+  key: type
+  string: intersection
+ entry
+  key: children
+  list
+   dict
+    entry
+     key: type
+     string: sphere
+    entry
+     key: position
+     list
+      number: 0.000000
+      number: 0.000000
+      number: 0.000000
+    entry
+     key: radius
+     number: 2.500000
+   dict
+    entry
+     key: type
+     string: cube
+    entry
+     key: position
+     list
+      number: -1.000000
+      number: -1.000000
+      number: -1.000000
+    entry
+     key: size
+     list
+      number: 2.000000
+      number: 2.000000
+      number: 2.000000
+    entry
+     key: rotation
+     list
+      number: 0.500000
+      number: 0.000000
+      number: 0.000000
