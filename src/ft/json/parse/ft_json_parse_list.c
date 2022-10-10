@@ -83,8 +83,8 @@ t_err	ft_json_parse_list(
 	out->value.tail = NULL;
 	if (fill_items(&curr, out))
 		return (true);
-	if (*curr->value.type != FT_JSON_TOKEN_TYPE_BRACKET_CLOSE
-		|| out->value.tail->value->type == FT_JSON_VALUE_TYPE_ERROR)
+	if (*curr->value.type != FT_JSON_TOKEN_TYPE_BRACKET_CLOSE || (out->value
+			.tail && out->value.tail->value->type == FT_JSON_VALUE_TYPE_ERROR))
 	{
 		ft_json_value_list_free(out);
 		out->type = FT_JSON_VALUE_TYPE_ERROR;
