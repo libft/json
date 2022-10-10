@@ -51,8 +51,13 @@ static bool	test_leak(const void *context)
 {
 	const char *const			str = context;
 	t_ft_json_value_internal	result;
+	volatile int *volatile		prevent_failure;
 
 	leak_test_start();
+	prevent_failure = malloc(sizeof(int));
+	if (prevent_failure)
+		*((volatile int *)prevent_failure) = 42;
+	free((void *)prevent_failure);
 	if (!ft_json_parse_internal(str, &result))
 		ft_json_value_internal_free(&result);
 	return (false);

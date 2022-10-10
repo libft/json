@@ -92,13 +92,13 @@ static bool	test_leak(const void *context)
 {
 	const char *const		str = context;
 	t_ft_json_token_list	list;
-	int *volatile			prevent_failure;
+	volatile int *volatile	prevent_failure;
 
 	leak_test_start();
 	prevent_failure = malloc(sizeof(int));
 	if (prevent_failure)
 		*((volatile int *)prevent_failure) = 42;
-	free(prevent_failure);
+	free((void *)prevent_failure);
 	if (ft_json_tokenize(str, &list))
 		return (false);
 	ft_json_token_list_free(list);
