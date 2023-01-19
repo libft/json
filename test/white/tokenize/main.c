@@ -101,7 +101,7 @@ static bool	test_leak(const void *context)
 	free((void *)prevent_failure);
 	if (ft_json_tokenize(str, &list))
 		return (false);
-	ft_json_token_list_free(list);
+	ft_json_tokenize_free(list);
 	leak_test_end();
 	return (false);
 }
@@ -125,10 +125,10 @@ int	main(int argc, char **argv)
 	free(str);
 	if (!error && print_token_list(list))
 	{
-		ft_json_token_list_free(list);
+		ft_json_tokenize_free(list);
 		error = true;
 	}
-	ft_json_token_list_free(list);
+	ft_json_tokenize_free(list);
 	if (error)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);

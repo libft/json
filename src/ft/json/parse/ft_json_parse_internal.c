@@ -30,16 +30,16 @@ t_err	ft_json_parse_internal(
 	head = token_list.head;
 	if (ft_json_parse_value(&head, out))
 	{
-		ft_json_token_list_free(token_list);
+		ft_json_tokenize_free(token_list);
 		return (true);
 	}
 	if (*head->value.type != FT_JSON_TOKEN_TYPE_EOF)
 	{
-		ft_json_token_list_free(token_list);
+		ft_json_tokenize_free(token_list);
 		ft_json_value_internal_free(out);
 		out->type = FT_JSON_VALUE_TYPE_ERROR;
 		return (false);
 	}
-	ft_json_token_list_free(token_list);
+	ft_json_tokenize_free(token_list);
 	return (false);
 }
