@@ -10,33 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_JSON_H
-# define FT_JSON_H
+#include "ft_json.h"
 
-# include <stddef.h>
-# include <stdbool.h>
+#include <stddef.h>
 
-# include "ft_types.h"
+#include "ft_json_internal.h"
 
-typedef void	*t_ft_json;
+size_t	ft_json_list_length(t_ft_json value)
+{
+	t_ft_json_value_internal *const	self = value;
+	t_ft_json_list_node				*current;
+	size_t							result;
 
-t_err		ft_json_parse(const char *str, t_ft_json *out);
-void		ft_json_free(t_ft_json value);
-
-bool		ft_json_is_null(t_ft_json value);
-bool		ft_json_is_boolean(t_ft_json value);
-bool		ft_json_is_number(t_ft_json value);
-bool		ft_json_is_string(t_ft_json value);
-bool		ft_json_is_list(t_ft_json value);
-bool		ft_json_is_dict(t_ft_json value);
-
-size_t		ft_json_list_length(t_ft_json value);
-bool		ft_json_dict_has_key(t_ft_json value, const char *key);
-
-bool		ft_json_get_bool(t_ft_json value);
-double		ft_json_get_number(t_ft_json value);
-const char	*ft_json_get_string(t_ft_json value);
-t_ft_json	ft_json_get_list(t_ft_json value, size_t index);
-t_ft_json	ft_json_get_dict(t_ft_json value, const char *key);
-
-#endif
+	result = 0;
+	current = self->list.value.head;
+	while (current)
+	{
+		result++;
+		current = current->next;
+	}
+	return (result);
+}
