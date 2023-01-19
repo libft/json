@@ -21,6 +21,6 @@ void	ft_json_free(t_ft_json value)
 {
 	t_ft_json_value_internal *const	original = value;
 
-	ft_json_value_internal_free(original);
+	ft_json_free_value(original);
 	free(original);
 }

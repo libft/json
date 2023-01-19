@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fake_file_name (file name is useless too)          :+:      :+:    :+:   */
+/*   ft_json_free_string.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: 42header-remover <whatever@example.com>    +#+  +:+       +#+        */
+/*   By: Juyeong Maing <jmaing@student.42seoul.kr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by VCS handles       #+#    #+#             */
-/*   Updated: 1970/01/01 00:00:00 by file history     ###   ########.fr       */
+/*   Updated: 2023/01/19 23:53:01 by Juyeong Maing    ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_json_internal.h"
 
-void	ft_json_value_internal_free(
-	t_ft_json_value_internal *value
+#include <stdlib.h>
+
+void	ft_json_free_string(
+	t_ft_json_value_string *value
 )
 {
-	if (value->type == FT_JSON_VALUE_TYPE_STRING)
-		ft_json_value_string_free(&value->string);
-	else if (value->type == FT_JSON_VALUE_TYPE_LIST)
-		ft_json_value_list_free(&value->list);
-	else if (value->type == FT_JSON_VALUE_TYPE_DICT)
-		ft_json_value_dict_free(&value->dict);
+	free(value->value);
 }

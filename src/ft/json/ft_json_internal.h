@@ -346,13 +346,13 @@ bool	ft_json_parse_next_is_list(
 bool	ft_json_parse_next_is_dict(
 			t_ft_json_token_type token_type);
 
-void	ft_json_value_internal_free(
+void	ft_json_free_value(
 			t_ft_json_value_internal *value);
-void	ft_json_value_string_free(
+void	ft_json_free_string(
 			t_ft_json_value_string *value);
-void	ft_json_value_list_free(
+void	ft_json_free_list(
 			t_ft_json_value_list *value);
-void	ft_json_value_dict_free(
+void	ft_json_free_dict(
 			t_ft_json_value_dict *value);
 
 t_err	ft_json_parse_internal(

@@ -59,7 +59,7 @@ static bool	test_leak(const void *context)
 		*((volatile int *)prevent_failure) = 42;
 	free((void *)prevent_failure);
 	if (!ft_json_parse_internal(str, &result))
-		ft_json_value_internal_free(&result);
+		ft_json_free_value(&result);
 	return (false);
 }
 
@@ -78,7 +78,7 @@ int	main(int argc, char **argv)
 		error = puts("Invalid JSON") < 0;
 	else
 		error = print_tree(result, 0);
-	ft_json_value_internal_free(&result);
+	ft_json_free_value(&result);
 	if (error)
 		return (EXIT_FAILURE);
 	errno = leak_test(test_leak, str, NULL);

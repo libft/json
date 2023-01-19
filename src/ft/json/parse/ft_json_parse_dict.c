@@ -88,7 +88,7 @@ static t_err	fill_entries(
 		*head = (*head)->next;
 		if (append_entry(head, out))
 		{
-			ft_json_value_dict_free(out);
+			ft_json_free_dict(out);
 			return (true);
 		}
 	}
@@ -119,7 +119,7 @@ t_err	ft_json_parse_dict(
 	if (*curr->value.type != FT_JSON_TOKEN_TYPE_BRACE_CLOSE || (out->value.tail
 			&& out->value.tail->value->type == FT_JSON_VALUE_TYPE_ERROR))
 	{
-		ft_json_value_dict_free(out);
+		ft_json_free_dict(out);
 		out->type = FT_JSON_VALUE_TYPE_ERROR;
 		return (false);
 	}

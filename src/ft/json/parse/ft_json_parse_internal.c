@@ -36,7 +36,7 @@ t_err	ft_json_parse_internal(
 	if (*head->value.type != FT_JSON_TOKEN_TYPE_EOF)
 	{
 		ft_json_tokenize_free(token_list);
-		ft_json_value_internal_free(out);
+		ft_json_free_value(out);
 		out->type = FT_JSON_VALUE_TYPE_ERROR;
 		return (false);
 	}

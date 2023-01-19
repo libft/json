@@ -55,7 +55,7 @@ static t_err	fill_items(
 		*head = (*head)->next;
 		if (append_item(head, out))
 		{
-			ft_json_value_list_free(out);
+			ft_json_free_list(out);
 			return (true);
 		}
 	}
@@ -86,7 +86,7 @@ t_err	ft_json_parse_list(
 	if (*curr->value.type != FT_JSON_TOKEN_TYPE_BRACKET_CLOSE || (out->value
 			.tail && out->value.tail->value->type == FT_JSON_VALUE_TYPE_ERROR))
 	{
-		ft_json_value_list_free(out);
+		ft_json_free_list(out);
 		out->type = FT_JSON_VALUE_TYPE_ERROR;
 		return (false);
 	}
