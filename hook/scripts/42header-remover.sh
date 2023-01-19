@@ -15,7 +15,7 @@ if [ "$( < "$1" tr -d '\n' | grep -Ec \\/\\\*\ \\\*\{74\}\ \\\*\\/\\/\\\*.\*\\\*
   git add "$1"
 fi
 
-if head -11 < "$1" | grep -Eo ".{25}$" | cmp -s hook/assets/42header-t-form-11x25.txt; then
+if head -11 < "$1" | grep -Eo ".{25}$" | cmp -s - hook/assets/42header-t-form-11x25.txt; then
   sed "s/$PLACEHOLDER/$FILE_NAME/" < hook/assets/42header-t-template.txt > "$1.tmp"
   tail -n +12 "$1" >> "$1.tmp"
   mv "$1" "$1.bak"
