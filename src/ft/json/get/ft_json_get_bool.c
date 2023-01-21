@@ -16,7 +16,7 @@
 
 #include "ft_json_internal.h"
 
-bool	ft_json_get_boolean(t_ft_json value)
+bool	ft_json_get_bool(t_ft_json value)
 {
 	t_ft_json_value_internal *const	self = value;
 
