@@ -12,8 +12,6 @@
 
 #include "ft_json.h"
 
-#include <stddef.h>
-
 #include "ft_json_internal.h"
 
 static inline bool	ft_cstring_equals(const char *a, const char *b)
@@ -26,7 +24,26 @@ static inline bool	ft_cstring_equals(const char *a, const char *b)
 	return (!*a && !*b);
 }
 
-bool	ft_json_dict_has_key(t_ft_json value, const char *key)
+static inline bool	array_has(
+	const char *const *keys,
+	size_t count,
+	const char *string
+)
+{
+	size_t	i;
+
+	i = -1;
+	while (++i < count)
+		if (ft_cstring_equals(keys[i], string))
+			return (true);
+	return (false);
+}
+
+bool	ft_json_has_extra_key(
+	t_ft_json value,
+	const char *const *keys,
+	size_t count
+)
 {
 	t_ft_json_value_internal *const	self = value;
 	t_ft_json_dict_node				*current;
@@ -34,7 +51,7 @@ bool	ft_json_dict_has_key(t_ft_json value, const char *key)
 	current = self->dict.value.head;
 	while (current)
 	{
-		if (ft_cstring_equals(current->key, key))
+		if (array_has(keys, count, current->key))
 			return (true);
 		current = current->next;
 	}

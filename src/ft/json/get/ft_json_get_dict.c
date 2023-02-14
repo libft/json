@@ -14,7 +14,7 @@
 
 #include "ft_json_internal.h"
 
-static bool	ft_cstring_equals(const char *a, const char *b)
+static inline bool	ft_cstring_equals(const char *a, const char *b)
 {
 	while (*a && *a == *b)
 	{

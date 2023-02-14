@@ -39,4 +39,7 @@ const char	*ft_json_get_string(t_ft_json value);
 t_ft_json	ft_json_get_list(t_ft_json value, size_t index);
 t_ft_json	ft_json_get_dict(t_ft_json value, const char *key);
 
+bool		ft_json_has_extra_key(
+				t_ft_json value, const char *const *keys, size_t count);
+
 #endif
